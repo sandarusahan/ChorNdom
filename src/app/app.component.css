@@ -1,0 +1,30 @@
+.chord h1
+ {
+    color: darkcyan;
+    margin: 5vh;
+    /* padding: 20px; */
+    font-size: 200px;
+    width: 40vw;
+    height: 50vh;
+    
+}
+
+.containerdum {
+    height: 100vh;
+    width: 50vw;
+}
+
+.btn {
+    background-color: darkcyan;
+    color: white;
+}
+
+.card {
+    height: 8vh;
+    width: 7vw;
+}
+
+.card:hover {
+    background-color: darkcyan;
+    color: white;
+}

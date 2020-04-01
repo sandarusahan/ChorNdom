@@ -15,8 +15,9 @@ export class AppComponent {
   intObs : Observable<number>;
   sub;
   majorChords =['C','D','E','F','G','A','B','C#','Eb','F#','Ab','Bb'];
-  chords =['C','D','E','F','G','A','B','C#','Eb','F#','Ab','Bb','Cm','Dm','Em','Fm','Gm','Am','Bm','C#m','Ebm','F#m','Abm','Bbm'];
+  // chords =['C','D','E','F','G','A','B','C#','Eb','F#','Ab','Bb','Cm','Dm','Em','Fm','Gm','Am','Bm','C#m','Ebm','F#m','Abm','Bbm'];
   minorChords =['Cm','Dm','Em','Fm','Gm','Am','Bm','C#m','Ebm','F#m','Abm','Bbm'];
+  chords = this.majorChords.concat(this.minorChords);
   selChords = [];
   canStart:Boolean = false;
   started:Boolean = false;
@@ -87,6 +88,7 @@ export class AppComponent {
     console.log('stoped')
 
     this.canStart = true;
+    this.started = false;
   }
   generateRandomNumbers(){
     let randomNumberGen;

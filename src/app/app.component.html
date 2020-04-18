@@ -1,50 +1,82 @@
-<div class="row">
-  <div class="col-4">
-    <div class="containerdum">
+<div class="container mt-5">
+  <div class="temp-input">
+    <div class="input-group mb-3">
+      <input type="number" class="form-control" [(ngModel)]="tempo" (input)="interVal()" placeholder="Tempo in BPM"
+        required aria-label="Recipient's username" min="1" max="500" aria-describedby="button-addon2">
+      <div class="input-group-append">
+        <button (click)="start()" *ngIf="!started && 1<=tempo && tempo<=500" class="btn">Start</button>
+        <span *ngIf="tempo>500 || tempo < 1" class="text-danger">Tempo must be within the range of 1 bpm to 500
+          bpm</span>
+        <button type="reset" (click)="stop()" *ngIf="started" class="btn">Stop</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="display">
+
+    <div class="display-chord">
       <div class="chord">
         <h1>{{chord}}</h1>
+        <h6 id="tchord">{{nextChord}}</h6>
       </div>
-
-      <input type="number" (input)="interVal($event)" placeholder="interval in seconds" required class="m-2">
-      <button (click)="start()" *ngIf="canStart && !started" class="btn m-2">Start</button>
-      <button type="reset" (click)="stop()" *ngIf="started" class="btn m-2">Stop</button>
-
-      <br>
-      <span *ngIf="!started">Add an interval</span>
+      <div class="metro">
+        <i class="fas fa-circle" [ngClass]="{'dot-col': dot == 1}"></i>
+        <i class="fas fa-circle" [ngClass]="{'dot-col': dot == 2}"></i>
+        <i class="fas fa-circle" *ngIf="beat == 3 || beat == 4" [ngClass]="{'dot-col': dot == 3}"></i>
+        <i class="fas fa-circle" *ngIf="beat == 4" [ngClass]="{'dot-col': dot == 4}"></i>
+      </div>
+    </div>
+    <div class="display-strum">
 
     </div>
-  </div>
-  <div class="col">
-
-<div class="m-3">
-  <div class="row">
-    <div class="col">
-      <button (click)="major()" class="btn">Major Only</button>
-    </div>
-    <div class="col">
-      <button (click)="minor()" class="btn">Minor Only</button>
-    </div>
-    <div class="col">
-      <button (click)="all()" class="btn">All Chords</button>
-    </div>
-  </div>
-</div>
-    <div class="chordSel">
-      <div class="card-group p-3">
-        <div *ngFor="let item of chords; let i = index">
-          <div (click)="cardOnClick(i)" class="card m-1">
-            <div class="card-body">
-              <h5 class="card-title">{{item}}</h5>
-
-            </div>
+    <div class="chord-ctrl">
+      <div class="disp-tempo">
+        <div class="current-tempo">
+          {{tempo}} BPM
+        </div>
+      </div>
+      <div class="current-beat">
+        <div class="expand-ani">
+          <div [ngClass]="{'selected-beat': beat == 2}">
+            <button (click)="changeBeat(2)" class="btn btn-success">2/4</button>
+          </div>
+          <div [ngClass]="{'selected-beat': beat == 3}">
+            <button (click)="changeBeat(3)" class="btn btn-success">3/4</button>
+          </div>
+          <div [ngClass]="{'selected-beat': beat == 4}">
+            <button (click)="changeBeat(4)" class="btn btn-success">4/4</button>
           </div>
         </div>
+      </div>
+      <div class="quick-filters">
+        <div class="button">
+          <button (click)="major()" class="btn">Major</button>
+        </div>
+        <div class="button">
+          <button (click)="minor()" class="btn">Minor</button>
+        </div>
+        <div class="button">
+          <button (click)="all()" class="btn">All</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <div class="selected-chords">
+    <div class="row">
+      <div class="col sel-chord-txt">
+        <h5>You have selected {{selChords.length}} chords</h5>
+      </div>
+      <div class="col act-btn">
+        <button class="btn btn-primary btn-sm" [ngClass]="{'btn-off': !randomizeOn}"
+          (click)="randomize()">Randomized</button>
+        <button (click)="clearAll()" class="btn btn-outline-primary btn-sm"
+          style="align-self: auto; margin-left: 15vw;">Clear all</button>
 
       </div>
     </div>
-    <h5>You have selected </h5>
-    <div class="card-group p-3">
+
+    <div class="card-group">
       <div *ngFor="let item of selChords; let i = index">
 
         <div (click)="selCardOnClick(i)" class="card m-1">
@@ -57,4 +89,19 @@
     </div>
   </div>
 
+
+  <div class="chordSel">
+    <div class="card-group">
+      <div *ngFor="let item of chords; let i = index">
+        <div (click)="cardOnClick(i)" class="card m-1" [ngClass]="{'card-active': selChords.includes(chords[i])}">
+          <div class="card-body">
+            <h5 class="card-title">{{item}}</h5>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
 </div>

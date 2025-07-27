@@ -12,6 +12,11 @@
   margin: auto;
 }
 
+.display-strum {
+  width: 50%;
+  margin: auto;
+}
+
 .quick-filters {
   display: flex;
   flex-direction: row;

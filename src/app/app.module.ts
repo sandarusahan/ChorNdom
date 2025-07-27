@@ -2,10 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
+import { FretboardComponent } from './fretboard/fretboard.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FretboardComponent
   ],
   imports: [
     BrowserModule,

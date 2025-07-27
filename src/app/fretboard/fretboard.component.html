@@ -1,0 +1,19 @@
+<div class="fretboard-container">
+  <div class="fret-numbers">
+    <div *ngFor="let fret of frets" class="fret-number">
+      {{ fret }}
+    </div>
+  </div>
+  <div class="fretboard">
+    <div *ngFor="let fret of frets" class="fret">
+      <div *ngFor="let string of strings" class="string">
+        <div *ngIf="isFretted(string, fret) && !isBarre(fret, string)" class="dot"></div>
+      </div>
+      <div *ngIf="voicing.barre && voicing.barre.fret === fret" class="barre-container"
+           [style.top.%]="(voicing.barre.startString * 100 / 6)"
+           [style.height.%]="(voicing.barre.endString - voicing.barre.startString + 1) * 100 / 6">
+        <div class="barre"></div>
+      </div>
+    </div>
+  </div>
+</div>

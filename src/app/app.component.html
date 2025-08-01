@@ -1,107 +1,89 @@
-<div class="container mt-5">
-  <div class="temp-input">
-    <div class="input-group mb-3">
-      <input type="number" class="form-control" [(ngModel)]="tempo" (input)="interVal()" placeholder="Tempo in BPM"
-        required aria-label="Recipient's username" min="1" max="500" aria-describedby="button-addon2">
-      <div class="input-group-append">
-        <button (click)="start()" *ngIf="!started && 1<=tempo && tempo<=500" class="btn">Start</button>
-        <span *ngIf="tempo>500 || tempo < 1" class="text-danger">Tempo must be within the range of 1 bpm to 500
-          bpm</span>
-        <button type="reset" (click)="stop()" *ngIf="started" class="btn">Stop</button>
+<div class="app-container">
+  <div class="main-card">
+    <button (click)="toggleMute()" class="mute-button">
+      <img [src]="muted ? 'assets/icons/mute.png' : 'assets/icons/unmute.png'" alt="Mute/Unmute">
+    </button>
+    <div class="chord-display">
+      <div class="fretboard-wrapper">
+        <app-fretboard [voicing]="currentChordFingering"></app-fretboard>
       </div>
-    </div>
-  </div>
-
-  <div class="display">
-
-    <div class="display-chord">
-      <div class="chord">
-        <h1>{{chord}}</h1>
-        <h6 id="tchord">{{nextChord}}</h6>
-      </div>
-      <div class="metro">
-        <i class="fas fa-circle" [ngClass]="{'dot-col': dot == 1}"></i>
-        <i class="fas fa-circle" [ngClass]="{'dot-col': dot == 2}"></i>
-        <i class="fas fa-circle" *ngIf="beat == 3 || beat == 4" [ngClass]="{'dot-col': dot == 3}"></i>
-        <i class="fas fa-circle" *ngIf="beat == 4" [ngClass]="{'dot-col': dot == 4}"></i>
-      </div>
-    </div>
-    <div class="display-strum">
-      <app-fretboard [voicing]="currentChordFingering"></app-fretboard>
-    </div>
-    <div class="chord-ctrl">
-      <div class="disp-tempo">
-        <div class="current-tempo">
-          {{tempo}} BPM
-        </div>
-      </div>
-      <div class="current-beat">
-        <div class="expand-ani">
-          <div [ngClass]="{'selected-beat': beat == 2}">
-            <button (click)="changeBeat(2)" class="btn btn-success">2/4</button>
+      <div class="chord-info">
+        <h1>{{ chord }}</h1>
+        <p>Next Up: {{ nextChord }}</p>
+        <div class="controls">
+          <div class="time-signature-display">
+            <i class="fas fa-music"></i>
+            <span>{{ beat }}/4</span>
           </div>
-          <div [ngClass]="{'selected-beat': beat == 3}">
-            <button (click)="changeBeat(3)" class="btn btn-success">3/4</button>
+          <div class="bpm-display" (click)="editTempo()">
+            <i class="fas fa-tachometer-alt"></i>
+            <span *ngIf="!editingTempo">{{ tempo }} BPM</span>
+            <input *ngIf="editingTempo" type="number" [(ngModel)]="tempo" (blur)="updateTempo()" (keyup.enter)="updateTempo()" min="1" max="500" autofocus>
           </div>
-          <div [ngClass]="{'selected-beat': beat == 4}">
-            <button (click)="changeBeat(4)" class="btn btn-success">4/4</button>
-          </div>
-        </div>
-      </div>
-      <div class="quick-filters">
-        <div class="button">
-          <button (click)="major()" class="btn">Major</button>
-        </div>
-        <div class="button">
-          <button (click)="minor()" class="btn">Minor</button>
-        </div>
-        <div class="button">
-          <button (click)="all()" class="btn">All</button>
+          <button (click)="start()" *ngIf="!started" class="start-button">Start</button>
+          <button (click)="stop()" *ngIf="started" class="start-button">Stop</button>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="selected-chords">
-    <div class="row">
-      <div class="col sel-chord-txt">
-        <h5>You have selected {{selChords.length}} chords</h5>
-      </div>
-      <div class="col act-btn">
-        <button class="btn btn-primary btn-sm" [ngClass]="{'btn-off': !randomizeOn}"
-          (click)="randomize()">Randomized</button>
-        <button (click)="clearAll()" class="btn btn-outline-primary btn-sm"
-          style="align-self: auto; margin-left: 15vw;">Clear all</button>
-
-      </div>
-    </div>
-
-    <div class="card-group">
-      <div *ngFor="let item of selChords; let i = index">
-
-        <div (click)="selCardOnClick(i)" class="card m-1">
-          <div class="card-body">
-            <h5 class="card-title">{{item}}</h5>
-
-          </div>
-        </div>
+  <div class="section">
+    <div class="section-header">
+      <h2>Time Signature:</h2>
+      <div class="beat-selection">
+        <button (click)="changeBeat(4)" [class.active]="beat === 4">4</button>
+        <button (click)="changeBeat(3)" [class.active]="beat === 3">3/4</button>
+        <button (click)="changeBeat(2)" [class.active]="beat === 2">2/4</button>
       </div>
     </div>
   </div>
 
-
-  <div class="chordSel">
-    <div class="card-group">
-      <div *ngFor="let item of chords; let i = index">
-        <div (click)="cardOnClick(i)" class="card m-1" [ngClass]="{'card-active': selChords.includes(chords[i])}">
-          <div class="card-body">
-            <h5 class="card-title">{{item}}</h5>
-
-          </div>
-        </div>
+  <div class="section">
+    <div class="section-header">
+      <h2>Progression Mode:</h2>
+      <div class="progression-selection">
+        <button (click)="setProgression('sequential')" [class.active]="progressionMode === 'sequential'">Sequential</button>
+        <button (click)="setProgression('random')" [class.active]="progressionMode === 'random'">Random</button>
+        <button (click)="setProgression('circleOfFifths')" [class.active]="progressionMode === 'circleOfFifths'">Circle of Fifths</button>
       </div>
-
-
     </div>
   </div>
+
+  <div class="section">
+    <div class="section-header">
+      <h2>Chord Types:</h2>
+      <div class="chord-type-selection">
+        <button (click)="major()">Major</button>
+        <button (click)="minor()">Minor</button>
+        <button (click)="seventh()">7th</button>
+        <button (click)="suspended()">Sus</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <h2>You Selected:</h2>
+      <button (click)="clearAll()" class="clear-all-button">Clear All</button>
+    </div>
+    <div class="selected-chords">
+      <div *ngFor="let item of selChords" class="chord-chip">
+        {{ item }}
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Filter Chords:</h2>
+    <div class="filter-chords">
+      <button *ngFor="let item of chords" (click)="cardOnClick(chords.indexOf(item))"
+        [class.selected]="selChords.includes(item)">
+        {{ item }}
+      </button>
+    </div>
+  </div>
+
+  <footer>
+    Made with ❤️ for fellow <b>Guitar Beginners</b>
+  </footer>
 </div>

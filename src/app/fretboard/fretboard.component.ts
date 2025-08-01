@@ -8,7 +8,7 @@ import { Voicing } from '../chord';
 })
 export class FretboardComponent implements OnChanges {
   @Input() voicing: Voicing = { fingering: [] };
-  frets: number[] = [1, 2, 3, 4];
+  frets: number[] = [1, 2, 3, 4, 5, 6];
   strings = Array(6).fill(0).map((x, i) => i);
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -23,20 +23,20 @@ export class FretboardComponent implements OnChanges {
       .filter(f => f > 0);
 
     if (frettedNotes.length === 0) {
-      this.frets = [1, 2, 3, 4];
+      this.frets = [1, 2, 3, 4, 5, 6];
       return;
     }
 
     const minFret = Math.min(...frettedNotes);
     const maxFret = Math.max(...frettedNotes);
 
-    if (maxFret < 5) {
-      this.frets = [1, 2, 3, 4];
+    if (maxFret < 7) {
+      this.frets = [1, 2, 3, 4, 5, 6];
     } else {
       const windowStart = minFret;
       let windowEnd = maxFret;
-      if (windowEnd - windowStart < 3) {
-        windowEnd = windowStart + 3;
+      if (windowEnd - windowStart < 5) {
+        windowEnd = windowStart + 5;
       }
 
       this.frets = [];

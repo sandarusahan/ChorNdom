@@ -1,34 +1,44 @@
 .fretboard-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .fret-numbers {
   display: flex;
-  flex-direction: row;
-  margin-left: 2px; /* To align with the fretboard border */
+  width: 100%;
+  justify-content: space-around;
+  padding: 0 10px;
+  margin-bottom: 5px;
+  box-sizing: border-box;
 }
 
 .fret-number {
   flex: 1;
   text-align: center;
-  padding-bottom: 5px;
+  color: #888;
 }
 
 .fretboard {
   display: flex;
   flex-direction: row;
-  border: 2px solid #000;
-  border-left-width: 5px;
-  background-color: #deb887;
+  background-color: var(--secondary-color);
   width: 100%;
-  height: 150px;
+  aspect-ratio: 7 / 3;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .fret {
   flex: 1;
-  border-right: 2px solid #000;
+  border-right: 1px solid #c4bcae;
   position: relative;
+}
+
+.fret:first-child {
+  border-left: 5px solid #a99e8c;
 }
 
 .fret:last-child {
@@ -37,7 +47,7 @@
 
 .string {
   height: calc(100% / 6);
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #c4bcae;
   box-sizing: border-box;
   position: relative;
 }
@@ -51,9 +61,9 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
-  background-color: #000;
+  width: clamp(12px, 2vw, 22px);
+  height: clamp(12px, 2vw, 22px);
+  background-color: #424242;
   border-radius: 50%;
 }
 
@@ -69,6 +79,6 @@
 .barre {
   width: 20%;
   height: 100%;
-  background: black;
+  background: #424242;
   border-radius: 5px;
 }

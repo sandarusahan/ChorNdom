@@ -74,7 +74,7 @@ export class AppComponent {
   started: Boolean = false;
   progressionMode: 'sequential' | 'random' | 'circleOfFifths' = 'sequential';
   editingTempo: boolean = false;
-  muted: boolean = false;
+  muted: boolean = true;
 
   intVal = 60000/100;
   tempo = 100;

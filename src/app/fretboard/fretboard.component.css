@@ -35,9 +35,14 @@
   flex: 1;
   border-right: 1px solid #c4bcae;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 0;
+  box-sizing: border-box;
 }
 
-.fret:first-child {
+.fretboard.show-nut .fret:first-child {
   border-left: 5px solid #a99e8c;
 }
 
@@ -46,14 +51,9 @@
 }
 
 .string {
-  height: calc(100% / 6);
   border-bottom: 1px solid #c4bcae;
   box-sizing: border-box;
   position: relative;
-}
-
-.string:last-child {
-  border-bottom: none;
 }
 
 .dot {

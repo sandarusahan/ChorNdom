@@ -10,6 +10,7 @@ export class FretboardComponent implements OnChanges {
   @Input() voicing: Voicing = { fingering: [] };
   frets: number[] = [1, 2, 3, 4, 5, 6];
   strings = Array(6).fill(0).map((x, i) => i);
+  public showNut = true;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.voicing && this.voicing) {
@@ -24,26 +25,26 @@ export class FretboardComponent implements OnChanges {
 
     if (frettedNotes.length === 0) {
       this.frets = [1, 2, 3, 4, 5, 6];
-      return;
-    }
-
-    const minFret = Math.min(...frettedNotes);
-    const maxFret = Math.max(...frettedNotes);
-
-    if (maxFret < 7) {
-      this.frets = [1, 2, 3, 4, 5, 6];
     } else {
-      const windowStart = minFret;
-      let windowEnd = maxFret;
-      if (windowEnd - windowStart < 5) {
-        windowEnd = windowStart + 5;
-      }
+      const minFret = Math.min(...frettedNotes);
+      const maxFret = Math.max(...frettedNotes);
 
-      this.frets = [];
-      for (let i = windowStart; i <= windowEnd; i++) {
-        this.frets.push(i);
+      if (maxFret < 7) {
+        this.frets = [1, 2, 3, 4, 5, 6];
+      } else {
+        const windowStart = minFret;
+        let windowEnd = maxFret;
+        if (windowEnd - windowStart < 5) {
+          windowEnd = windowStart + 5;
+        }
+
+        this.frets = [];
+        for (let i = windowStart; i <= windowEnd; i++) {
+          this.frets.push(i);
+        }
       }
     }
+    this.showNut = this.frets[0] === 1;
   }
 
   isFretted(string: number, fret: number): boolean {
@@ -55,5 +56,13 @@ export class FretboardComponent implements OnChanges {
       return false;
     }
     return this.voicing.barre.fret === fret && string >= this.voicing.barre.startString && string <= this.voicing.barre.endString;
+  }
+
+  getStringThickness(string: number): string {
+    const minThickness = 1;
+    const maxThickness = 3;
+    const thickness =
+      minThickness + (maxThickness - minThickness) * ((5 - string) / 5);
+    return `${thickness}px`;
   }
 }

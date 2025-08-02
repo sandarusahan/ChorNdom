@@ -4,9 +4,9 @@
       {{ fret }}
     </div>
   </div>
-  <div class="fretboard">
+  <div class="fretboard" [class.show-nut]="showNut">
     <div *ngFor="let fret of frets" class="fret">
-      <div *ngFor="let string of strings" class="string">
+      <div *ngFor="let string of strings" class="string" [style.border-bottom-width]="getStringThickness(string)">
         <div *ngIf="isFretted(string, fret) && !isBarre(fret, string)" class="dot"></div>
       </div>
       <div *ngIf="voicing.barre && voicing.barre.fret === fret" class="barre-container"

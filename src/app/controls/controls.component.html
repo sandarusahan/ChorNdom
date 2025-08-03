@@ -1,0 +1,38 @@
+<div class="controls">
+  <div class="time-signature-display">
+    <i class="fas fa-music"></i>
+    <span>{{ beat }}/4</span>
+  </div>
+  <div class="bpm-display" (click)="editTempo()">
+    <i class="fas fa-tachometer-alt"></i>
+    <span *ngIf="!editingTempo">{{ tempo }} BPM</span>
+    <input *ngIf="editingTempo" type="number" [(ngModel)]="tempo" (blur)="onUpdateTempo()" (keyup.enter)="onUpdateTempo()" min="1" max="500" autofocus>
+  </div>
+  <button (click)="start.emit()" *ngIf="!started" class="start-button">Start</button>
+  <button (click)="stop.emit()" *ngIf="started" class="start-button">Stop</button>
+  <button (click)="toggleMute.emit()" class="mute-button">
+    <img [src]="muted ? 'assets/icons/mute.png' : 'assets/icons/unmute.png'" alt="Mute/Unmute">
+  </button>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <h2>Time Signature:</h2>
+    <div class="beat-selection">
+      <button (click)="changeBeat.emit(4)" [class.active]="beat === 4">4/4</button>
+      <button (click)="changeBeat.emit(3)" [class.active]="beat === 3">3/4</button>
+      <button (click)="changeBeat.emit(2)" [class.active]="beat === 2">2/4</button>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <h2>Progression Mode:</h2>
+    <div class="progression-selection">
+      <button (click)="setProgression.emit('sequential')" [class.active]="progressionMode === 'sequential'">Sequential</button>
+      <button (click)="setProgression.emit('random')" [class.active]="progressionMode === 'random'">Random</button>
+      <button (click)="setProgression.emit('circleOfFifths')" [class.active]="progressionMode === 'circleOfFifths'">Circle of Fifths</button>
+    </div>
+  </div>
+</div>

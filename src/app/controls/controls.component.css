@@ -1,0 +1,117 @@
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.time-signature-display {
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.time-signature-display .fa-music {
+  margin-right: 10px;
+  color: var(--primary-color);
+}
+
+.bpm-display {
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.bpm-display .fa-tachometer-alt {
+  margin-right: 10px;
+  color: var(--primary-color);
+}
+
+.start-button {
+  background-color: #e57373;
+  color: var(--light-text-color);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.start-button:hover {
+  background-color: #ef5350;
+}
+
+.mute-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.mute-button img {
+  width: 24px;
+  height: 24px;
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.section h2 {
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  font-weight: 500;
+  margin: 0;
+}
+
+.beat-selection button {
+  background-color: var(--light-text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin: 3px;
+}
+
+.beat-selection button.active {
+  background-color: var(--primary-color);
+  color: var(--light-text-color);
+  border-color: var(--primary-color);
+}
+
+.progression-selection {
+  display: flex;
+  gap: 10px;
+}
+
+.progression-selection button {
+  background-color: var(--light-text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin: 3px;
+}
+
+.progression-selection button.active {
+  background-color: var(--primary-color);
+  color: var(--light-text-color);
+  border-color: var(--primary-color);
+}

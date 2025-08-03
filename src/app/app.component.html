@@ -1,93 +1,33 @@
 <div class="app-container">
   <div class="main-card">
-    <button (click)="toggleMute()" class="mute-button">
-      <img [src]="muted ? 'assets/icons/mute.png' : 'assets/icons/unmute.png'" alt="Mute/Unmute">
-    </button>
-    <div class="chord-display">
-      <div class="fretboard-wrapper">
-        <app-fretboard [voicing]="currentChordFingering"></app-fretboard>
-      </div>
-      <div class="chord-info">
-        <h1>{{ chord }}</h1>
-        <div class="metronome-dot-container">
-          <div class="metronome-dot" [class.active]="dot === 1"></div>
-          <div class="metronome-dot" [class.active]="dot === 2"></div>
-          <div class="metronome-dot" [class.active]="dot === 3"></div>
-          <div class="metronome-dot" [class.active]="dot === 4"></div>
-        </div>
-        <p>Next Up: {{ nextChord }}</p>
-        <div class="controls">
-          <div class="time-signature-display">
-            <i class="fas fa-music"></i>
-            <span>{{ beat }}/4</span>
-          </div>
-          <div class="bpm-display" (click)="editTempo()">
-            <i class="fas fa-tachometer-alt"></i>
-            <span *ngIf="!editingTempo">{{ tempo }} BPM</span>
-            <input *ngIf="editingTempo" type="number" [(ngModel)]="tempo" (blur)="updateTempo()" (keyup.enter)="updateTempo()" min="1" max="500" autofocus>
-          </div>
-          <button (click)="start()" *ngIf="!started" class="start-button">Start</button>
-          <button (click)="stop()" *ngIf="started" class="start-button">Stop</button>
-        </div>
-      </div>
-    </div>
+    <app-chord-display
+      [chord]="chord"
+      [nextChord]="nextChord"
+      [voicing]="currentChordFingering"
+      [dot]="dot"
+    ></app-chord-display>
+    <app-controls
+      [started]="started"
+      [muted]="muted"
+      [tempo]="tempo"
+      [beat]="beat"
+      [progressionMode]="progressionMode"
+      (start)="start()"
+      (stop)="stop()"
+      (toggleMute)="toggleMute()"
+      (updateTempo)="updateTempo($event)"
+      (changeBeat)="changeBeat($event)"
+      (setProgression)="setProgression($event)"
+    ></app-controls>
   </div>
 
-  <div class="section">
-    <div class="section-header">
-      <h2>Time Signature:</h2>
-      <div class="beat-selection">
-        <button (click)="changeBeat(4)" [class.active]="beat === 4">4</button>
-        <button (click)="changeBeat(3)" [class.active]="beat === 3">3/4</button>
-        <button (click)="changeBeat(2)" [class.active]="beat === 2">2/4</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-header">
-      <h2>Progression Mode:</h2>
-      <div class="progression-selection">
-        <button (click)="setProgression('sequential')" [class.active]="progressionMode === 'sequential'">Sequential</button>
-        <button (click)="setProgression('random')" [class.active]="progressionMode === 'random'">Random</button>
-        <button (click)="setProgression('circleOfFifths')" [class.active]="progressionMode === 'circleOfFifths'">Circle of Fifths</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-header">
-      <h2>Chord Types:</h2>
-      <div class="chord-type-selection">
-        <button (click)="major()">Major</button>
-        <button (click)="minor()">Minor</button>
-        <button (click)="seventh()">7th</button>
-        <button (click)="suspended()">Sus</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-header">
-      <h2>You Selected:</h2>
-      <button (click)="clearAll()" class="clear-all-button">Clear All</button>
-    </div>
-    <div class="selected-chords">
-      <div *ngFor="let item of selChords" class="chord-chip">
-        {{ item }}
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Filter Chords:</h2>
-    <div class="filter-chords">
-      <button *ngFor="let item of chords" (click)="cardOnClick(chords.indexOf(item))"
-        [class.selected]="selChords.includes(item)">
-        {{ item }}
-      </button>
-    </div>
-  </div>
+  <app-chord-selector
+    [chords]="chords"
+    [selChords]="selChords"
+    (selectChord)="cardOnClick($event)"
+    (clearAll)="clearAll()"
+    (selectChordType)="onSelectChordType($event)"
+  ></app-chord-selector>
 
   <footer>
     Made with ❤️ for fellow <b>Guitar Beginners</b>

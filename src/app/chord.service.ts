@@ -41,13 +41,21 @@ export class ChordService {
     'Asus4': [{ fingering: [null, 0, 2, 2, 3, 0] }],
     'Dsus2': [{ fingering: [null, null, 0, 2, 3, 0] }],
     'Dsus4': [{ fingering: [null, null, 0, 2, 3, 3] }],
-    'Esus4': [{ fingering: [0, 2, 2, 2, 0, 0] }]
+    'Esus4': [{ fingering: [0, 2, 2, 2, 0, 0] }],
+    'Cdim': [{ fingering: [null, 3, 4, 5, 4, 2] }],
+    'Ddim': [{ fingering: [null, null, 0, 1, 3, 1] }],
+    'Edim': [{ fingering: [null, null, 2, 3, 2, 3] }],
+    'Fdim': [{ fingering: [1, 2, 3, 1, 3, 1] }],
+    'Gdim': [{ fingering: [3, 4, 5, 3, 5, 3] }],
+    'Adim': [{ fingering: [null, 0, 1, 2, 1, 2] }],
+    'Bdim': [{ fingering: [null, 2, 3, 4, 3, 1] }]
   };
 
   private majorChords = ['C', 'D', 'E', 'F', 'G', 'A', 'B', 'C#', 'Eb', 'F#', 'Ab', 'Bb'];
   private minorChords = ['Cm', 'Dm', 'Em', 'Fm', 'Gm', 'Am', 'Bm', 'C#m', 'Ebm', 'F#m', 'Abm', 'Bbm'];
   private seventhChords = ['C7', 'D7', 'E7', 'F7', 'G7', 'A7', 'B7'];
   private suspendedChords = ['Asus2', 'Asus4', 'Dsus2', 'Dsus4', 'Esus4'];
+  private diminishedChords = ['Cdim', 'Ddim', 'Edim', 'Fdim', 'Gdim', 'Adim', 'Bdim'];
   private circleOfFifths = ['C', 'G', 'D', 'A', 'E', 'B', 'F#', 'C#', 'Ab', 'Eb', 'Bb', 'F'];
 
   private chromaticScale: string[] = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
@@ -75,6 +83,8 @@ export class ChordService {
         return this.seventhChords;
       case 'suspended':
         return this.suspendedChords;
+      case 'diminished':
+        return this.diminishedChords;
       case 'circleOfFifths':
         return this.circleOfFifths;
       default:
@@ -83,7 +93,7 @@ export class ChordService {
   }
 
   getAllChords(): string[] {
-    return this.majorChords.concat(this.minorChords, this.seventhChords, this.suspendedChords);
+    return this.majorChords.concat(this.minorChords, this.seventhChords, this.suspendedChords, this.diminishedChords);
   }
 
   getFamilyChords(rootNote: string, scale: 'major' | 'minor'): string[] {

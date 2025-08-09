@@ -9,6 +9,7 @@ import { MetronomeService } from './metronome.service';
 import { ChordDisplayComponent } from './chord-display/chord-display.component';
 import { ControlsComponent } from './controls/controls.component';
 import { ChordSelectorComponent } from './chord-selector/chord-selector.component';
+import { CircleOfFifthsModule } from './circle-of-fifths/circle-of-fifths.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ChordSelectorComponent } from './chord-selector/chord-selector.componen
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    CircleOfFifthsModule
   ],
   providers: [
     AudioService,

@@ -20,9 +20,27 @@
       (changeBeat)="changeBeat($event)"
       (setProgression)="setProgression($event)"
     ></app-controls>
+
+    <div class="section">
+      <div class="section-header selected-chords-header">
+        <h2>You Selected:</h2>
+        <button (click)="clearAll()" class="clear-all-button">Clear All</button>
+      </div>
+      <div class="selected-chords">
+        <div *ngFor="let item of selChords" class="chord-chip">
+          {{ item }}
+        </div>
+      </div>
+    </div>
   </div>
 
-  <app-chord-selector
+  <app-circle-of-fifths
+    *ngIf="progressionMode === 'circleOfFifths'"
+    (familyChordsSelected)="onFamilyChordsSelected($event)"
+    (chordSelected)="onCircleChordSelected($event)">
+  </app-circle-of-fifths>
+
+  <app-chord-selector *ngIf="progressionMode !== 'circleOfFifths'"
     [chords]="chords"
     [selChords]="selChords"
     (selectChord)="cardOnClick($event)"
@@ -31,6 +49,6 @@
   ></app-chord-selector>
 
   <footer>
-    Made with ❤️ for fellow <b>Guitar Beginners</b>
+    Made with ♥️ for the fellow Guitar Beginners
   </footer>
 </div>

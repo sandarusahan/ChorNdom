@@ -8,6 +8,7 @@ import { Voicing } from './chord';
 import { AudioService } from './audio.service';
 import { ChordService } from './chord.service';
 import { MetronomeService } from './metronome.service';
+import { CircleOfFifthsComponent } from './circle-of-fifths/circle-of-fifths.component';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class AppComponent implements OnInit {
   
   private metronomeSubscription: Subscription;
   private progressionIndex = 0;
+  private familyJustSelected = false;
 
   constructor(
     private audioService: AudioService,
@@ -86,14 +88,7 @@ export class AppComponent implements OnInit {
       case 'random':
         return this.selChords.length > 0 ? this.selChords : this.chords;
       case 'circleOfFifths':
-        if (this.selChords.length > 0) {
-          const filteredChords = this.circleOfFifths.filter(c => this.selChords.includes(c));
-          if (filteredChords.length > 0) {
-            return filteredChords;
-          }
-          return this.selChords;
-        }
-        return this.circleOfFifths;
+        return this.selChords;
     }
   }
 
@@ -169,6 +164,20 @@ export class AppComponent implements OnInit {
 
   onSelectChordType(type: string) {
     this.selChords = this.chordService.getChords(type);
+  }
+
+  onFamilyChordsSelected(chords: string[]) {
+    this.selChords = chords;
+    this.familyJustSelected = true;
+  }
+
+  onCircleChordSelected(chord: string) {
+    if (this.familyJustSelected) {
+      this.selChords = [chord];
+      this.familyJustSelected = false;
+    } else {
+      this.selChords.push(chord);
+    }
   }
 
   all() {

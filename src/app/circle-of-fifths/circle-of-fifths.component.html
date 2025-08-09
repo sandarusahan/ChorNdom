@@ -1,0 +1,22 @@
+<div class="circle-of-fifths-container">
+  <div class="circle-container">
+    <div class="circle">
+      <div class="controls">
+        <button (click)="toggleScale()">
+          Switch to {{ scale === 'major' ? 'Minor' : 'Major' }}
+        </button>
+      </div>
+      <div class="key" *ngFor="let key of keys; let i = index" [style.transform]="getTransform(i)" [class.active]="key === selectedKey" (click)="selectKey(key)">
+        {{ key }}
+      </div>
+    </div>
+  </div>
+  <div class="family-chords-container">
+    <h2>Family Chords</h2>
+    <div class="family-chords">
+      <div *ngFor="let chord of familyChords" class="family-chord" (click)="chordSelected.emit(chord)">
+        {{ chord }}
+      </div>
+    </div>
+  </div>
+</div>

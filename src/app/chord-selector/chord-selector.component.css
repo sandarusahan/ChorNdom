@@ -30,25 +30,16 @@
   margin: 3px;
 }
 
+.chord-type-selection button:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
 .chord-type-selection button.active {
   background-color: var(--primary-color);
   color: var(--light-text-color);
   border-color: var(--primary-color);
 }
 
-.selected-chords {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.chord-chip {
-  background-color: var(--primary-color);
-  color: var(--light-text-color);
-  padding: 10px 15px;
-  border-radius: 10px;
-  font-size: clamp(0.9rem, 2vw, 1rem);
-}
 
 .filter-chords {
   display: flex;
@@ -65,17 +56,11 @@
   transition: all 0.3s;
 }
 
+.filter-chords button:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
 .filter-chords button.selected {
   background-color: var(--secondary-color);
   border-color: var(--secondary-color);
-}
-
-.clear-all-button {
-  background-color: var(--light-text-color);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 8px 15px;
-  cursor: pointer;
-  transition: all 0.3s;
-  margin: 3px;
 }

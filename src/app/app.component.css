@@ -82,3 +82,37 @@ footer .fa-heart {
     font-size: 0.9rem;
   }
 }
+
+.selected-chords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chord-chip {
+  background-color: var(--primary-color);
+  color: var(--light-text-color);
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+.clear-all-button {
+  background-color: var(--light-text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin: 3px;
+}
+
+.clear-all-button:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.selected-chords-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

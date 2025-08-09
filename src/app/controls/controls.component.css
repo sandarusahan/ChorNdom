@@ -89,6 +89,10 @@
   margin: 3px;
 }
 
+.beat-selection button:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
 .beat-selection button.active {
   background-color: var(--primary-color);
   color: var(--light-text-color);
@@ -108,6 +112,10 @@
   cursor: pointer;
   transition: all 0.3s;
   margin: 3px;
+}
+
+.progression-selection button:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .progression-selection button.active {

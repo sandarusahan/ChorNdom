@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Voicing } from '../chord';
 
 @Component({
@@ -11,4 +11,24 @@ export class ChordDisplayComponent {
   @Input() nextChord: string;
   @Input() voicing: Voicing;
   @Input() dot: number;
+  @Input() started: boolean;
+  @Input() muted: boolean;
+  @Input() tempo: number;
+  @Input() beat: number;
+
+  @Output() start = new EventEmitter<void>();
+  @Output() stop = new EventEmitter<void>();
+  @Output() toggleMute = new EventEmitter<void>();
+  @Output() updateTempo = new EventEmitter<number>();
+
+  editingTempo = false;
+
+  editTempo() {
+    this.editingTempo = true;
+  }
+
+  onUpdateTempo() {
+    this.editingTempo = false;
+    this.updateTempo.emit(this.tempo);
+  }
 }

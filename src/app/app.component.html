@@ -5,17 +5,18 @@
       [nextChord]="nextChord"
       [voicing]="currentChordFingering"
       [dot]="dot"
-    ></app-chord-display>
-    <app-controls
       [started]="started"
       [muted]="muted"
       [tempo]="tempo"
       [beat]="beat"
-      [progressionMode]="progressionMode"
       (start)="start()"
       (stop)="stop()"
       (toggleMute)="toggleMute()"
       (updateTempo)="updateTempo($event)"
+    ></app-chord-display>
+    <app-controls
+      [beat]="beat"
+      [progressionMode]="progressionMode"
       (changeBeat)="changeBeat($event)"
       (setProgression)="setProgression($event)"
     ></app-controls>

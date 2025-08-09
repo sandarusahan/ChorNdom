@@ -16,6 +16,7 @@
   flex-direction: column;
   justify-content: space-between;
   margin-left: 20px;
+  align-self: stretch;
 }
 
 .chord-info h1 {
@@ -46,4 +47,42 @@
 
 .metronome-dot.active {
   background-color: var(--primary-color);
+}
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.time-signature-display,
+.bpm-display {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: #f0f0f0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.start-button {
+  padding: 8px 20px;
+  border-radius: 8px;
+  background-color: #E57373;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.mute-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mute-button img {
+  width: 24px;
+  height: 24px;
 }

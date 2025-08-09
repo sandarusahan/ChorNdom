@@ -80,31 +80,36 @@ export class AppComponent implements OnInit {
     this.beat = beat
   }
 
+  private getProgressionChords(): string[] {
+    switch (this.progressionMode) {
+      case 'sequential':
+      case 'random':
+        return this.selChords.length > 0 ? this.selChords : this.chords;
+      case 'circleOfFifths':
+        if (this.selChords.length > 0) {
+          const filteredChords = this.circleOfFifths.filter(c => this.selChords.includes(c));
+          if (filteredChords.length > 0) {
+            return filteredChords;
+          }
+          return this.selChords;
+        }
+        return this.circleOfFifths;
+    }
+  }
+
   start() {
     if (this.started) {
       this.stop();
     }
     this.progressionIndex = 0;
 
-    let progressionChords: string[] = [];
+    const initialProgressionChords = this.getProgressionChords();
 
-    switch (this.progressionMode) {
-      case 'sequential':
-        progressionChords = this.selChords.length > 0 ? this.selChords : this.chords;
-        break;
-      case 'random':
-        progressionChords = this.selChords.length > 0 ? this.selChords : this.chords;
-        break;
-      case 'circleOfFifths':
-        progressionChords = this.circleOfFifths;
-        break;
-    }
-
-    if (progressionChords.length === 0) {
+    if (initialProgressionChords.length === 0) {
       return;
     }
 
-    this.nextChord = progressionChords[this.progressionIndex];
+    this.nextChord = initialProgressionChords[this.progressionIndex];
 
     this.metronomeService.start(this.tempo);
     let beatCount = 0;
@@ -121,6 +126,17 @@ export class AppComponent implements OnInit {
         const voicings = this.chordService.getChord(this.chord);
         if (voicings && voicings.length > 0) {
           this.currentChordFingering = voicings[0];
+        }
+
+        const progressionChords = this.getProgressionChords();
+        
+        if (progressionChords.length === 0) {
+            this.stop();
+            return;
+        }
+
+        if (this.progressionIndex >= progressionChords.length) {
+            this.progressionIndex = 0;
         }
 
         if (this.progressionMode === 'random') {

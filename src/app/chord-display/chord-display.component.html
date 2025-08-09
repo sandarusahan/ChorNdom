@@ -11,5 +11,21 @@
       <div class="metronome-dot" [class.active]="dot === 4"></div>
     </div>
     <p>Next Up: {{ nextChord }}</p>
+    <div class="controls">
+      <div class="time-signature-display">
+        <i class="fas fa-music"></i>
+        <span>{{ beat }}/4</span>
+      </div>
+      <div class="bpm-display" (click)="editTempo()">
+        <i class="fas fa-tachometer-alt"></i>
+        <span *ngIf="!editingTempo">{{ tempo }} BPM</span>
+        <input *ngIf="editingTempo" type="number" [(ngModel)]="tempo" (blur)="onUpdateTempo()" (keyup.enter)="onUpdateTempo()" min="1" max="500" autofocus>
+      </div>
+      <button (click)="start.emit()" *ngIf="!started" class="start-button">Start</button>
+      <button (click)="stop.emit()" *ngIf="started" class="start-button">Stop</button>
+      <button (click)="toggleMute.emit()" class="mute-button">
+        <img [src]="muted ? 'assets/icons/mute.png' : 'assets/icons/unmute.png'" alt="Mute/Unmute">
+      </button>
+    </div>
   </div>
 </div>

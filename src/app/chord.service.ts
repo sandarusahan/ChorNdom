@@ -50,6 +50,15 @@ export class ChordService {
   private suspendedChords = ['Asus2', 'Asus4', 'Dsus2', 'Dsus4', 'Esus4'];
   private circleOfFifths = ['C', 'G', 'D', 'A', 'E', 'B', 'F#', 'C#', 'Ab', 'Eb', 'Bb', 'F'];
 
+  private chromaticScale: string[] = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+  private noteAliases: { [key: string]: string } = {
+    'Db': 'C#',
+    'Eb': 'D#',
+    'Gb': 'F#',
+    'Ab': 'G#',
+    'Bb': 'A#',
+  };
+
   constructor() { }
 
   getChord(chordName: string): Voicing[] {
@@ -75,5 +84,34 @@ export class ChordService {
 
   getAllChords(): string[] {
     return this.majorChords.concat(this.minorChords, this.seventhChords, this.suspendedChords);
+  }
+
+  getFamilyChords(rootNote: string, scale: 'major' | 'minor'): string[] {
+    const rootIndex = this.getNoteIndex(rootNote);
+    if (rootIndex === -1) {
+      return [];
+    }
+
+    const majorScaleIntervals = [0, 2, 4, 5, 7, 9, 11];
+    const minorScaleIntervals = [0, 2, 3, 5, 7, 8, 10];
+    const majorChordTypes = ['', 'm', 'm', '', '', 'm', 'dim'];
+    const minorChordTypes = ['m', 'dim', '', 'm', 'm', '', ''];
+
+    const intervals = scale === 'major' ? majorScaleIntervals : minorScaleIntervals;
+    const chordTypes = scale === 'major' ? majorChordTypes : minorChordTypes;
+
+    const familyChords = intervals.map((interval, i) => {
+      const noteIndex = (rootIndex + interval) % 12;
+      const note = this.chromaticScale[noteIndex];
+      const chordType = chordTypes[i];
+      return `${note}${chordType}`;
+    });
+
+    return familyChords;
+  }
+
+  private getNoteIndex(note: string): number {
+    const normalizedNote = this.noteAliases[note] || note;
+    return this.chromaticScale.indexOf(normalizedNote);
   }
 }

@@ -92,10 +92,14 @@ export class AppComponent implements OnInit {
     }
   }
 
-  start() {
+  async start() {
     if (this.started) {
       this.stop();
     }
+
+    await this.audioService.loadSound('../assets/tones/Bass-Drum-2.wav');
+    this.audioService.setMuted(this.muted);
+
     this.progressionIndex = 0;
 
     const initialProgressionChords = this.getProgressionChords();
@@ -106,14 +110,15 @@ export class AppComponent implements OnInit {
 
     this.nextChord = initialProgressionChords[this.progressionIndex];
 
-    this.metronomeService.start(this.tempo);
+    this.metronomeService.setTempo(this.tempo);
+    this.metronomeService.start();
     let beatCount = 0;
-    this.metronomeSubscription = this.metronomeService.beat$.subscribe(() => {
-      this.dot = beatCount % this.beat + 1;
+    this.metronomeSubscription = this.metronomeService.beat$.subscribe((beat) => {
+      this.dot = beat.beat;
       beatCount++;
 
       if (!this.muted) {
-        this.audioService.playSound();
+        // The audio is now played by the metronome service
       }
 
       if (beatCount % this.beat == 0) {
@@ -179,6 +184,10 @@ export class AppComponent implements OnInit {
       this.selChords.push(chord);
     }
   }
+  onTimeSignatureChange({ numerator, denominator }: { numerator: number, denominator: number }) {
+    this.metronomeService.setTimeSignature(numerator, denominator);
+    this.beat = numerator;
+  }
 
   all() {
     this.selChords = this.chordService.getAllChords().slice();
@@ -198,5 +207,6 @@ export class AppComponent implements OnInit {
 
   toggleMute() {
     this.muted = !this.muted;
+    this.audioService.setMuted(this.muted);
   }
 }

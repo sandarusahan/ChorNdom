@@ -1,0 +1,88 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.slider-container {
+  position: relative;
+  width: 100%;
+  height: 24px;
+  display: flex;
+  align-items: center;
+}
+
+input[type="range"] {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--secondary-color);
+  border-radius: 10px;
+  height: 10px;
+  outline: none;
+}
+
+/* Hide the default thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background: transparent; /* Make it invisible */
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  background: transparent; /* Make it invisible */
+  border: 0;
+  cursor: pointer;
+}
+
+/* Custom thumb styling using the output element */
+output {
+  position: absolute;
+  top: 0px;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 24px;
+  background: var(--primary-color);
+  color: var(--light-text-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 500;
+  pointer-events: none; /* So it doesn't interfere with slider interaction */
+  z-index: 1;
+}
+
+.denominator-buttons {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+button {
+  background-color: var(--light-text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin: 3px;
+  flex: 1;
+}
+
+button:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+button.active {
+  background-color: var(--primary-color);
+  color: var(--light-text-color);
+  border-color: var(--primary-color);
+}

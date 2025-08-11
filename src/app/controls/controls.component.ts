@@ -9,6 +9,5 @@ export class ControlsComponent {
   @Input() beat: number;
   @Input() progressionMode: 'sequential' | 'random' | 'circleOfFifths';
 
-  @Output() changeBeat = new EventEmitter<number>();
   @Output() setProgression = new EventEmitter<'sequential' | 'random' | 'circleOfFifths'>();
 }

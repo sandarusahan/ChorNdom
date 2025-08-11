@@ -10,6 +10,7 @@ import { ChordDisplayComponent } from './chord-display/chord-display.component';
 import { ControlsComponent } from './controls/controls.component';
 import { ChordSelectorComponent } from './chord-selector/chord-selector.component';
 import { CircleOfFifthsModule } from './circle-of-fifths/circle-of-fifths.module';
+import { TimeSignatureSelectorComponent } from './time-signature-selector/time-signature-selector.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { CircleOfFifthsModule } from './circle-of-fifths/circle-of-fifths.module
     FretboardComponent,
     ChordDisplayComponent,
     ControlsComponent,
-    ChordSelectorComponent
+    ChordSelectorComponent,
+    TimeSignatureSelectorComponent
   ],
   imports: [
     BrowserModule,

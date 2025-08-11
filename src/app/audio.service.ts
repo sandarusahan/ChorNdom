@@ -4,26 +4,47 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AudioService {
-  private audioContext: AudioContext;
-  private audioBuffer: AudioBuffer;
+  public audioContext: AudioContext;
+  private audioBuffer: AudioBuffer | null = null;
+  private loaded = false;
+  private gainNode: GainNode;
+  private isMuted = true;
 
   constructor() {
     this.audioContext = new AudioContext();
-    this.loadSound('../assets/tones/Bass-Drum-2.wav');
+    this.gainNode = this.audioContext.createGain();
+    this.gainNode.connect(this.audioContext.destination);
   }
 
-  private async loadSound(url: string) {
-    const response = await fetch(url);
-    const arrayBuffer = await response.arrayBuffer();
-    this.audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
-  }
-
-  playSound() {
-    if (this.audioBuffer) {
-      const source = this.audioContext.createBufferSource();
-      source.buffer = this.audioBuffer;
-      source.connect(this.audioContext.destination);
-      source.start();
+  public async loadSound(url: string): Promise<void> {
+    if (this.loaded && this.audioBuffer) {
+      return;
     }
+    try {
+      const response = await fetch(url);
+      const arrayBuffer = await response.arrayBuffer();
+      this.audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+      this.loaded = true;
+    } catch (e) {
+      console.error('Error loading sound', e);
+    }
+  }
+
+  public playSoundAt(time: number) {
+    if (!this.loaded || !this.audioBuffer) {
+      return;
+    }
+    const source = this.audioContext.createBufferSource();
+    source.buffer = this.audioBuffer;
+    source.connect(this.gainNode);
+    source.start(time);
+  }
+
+  public setMuted(isMuted: boolean) {
+    this.gainNode.gain.value = isMuted ? 0 : 1;
+  }
+
+  public get currentTime(): number {
+    return this.audioContext.currentTime;
   }
 }

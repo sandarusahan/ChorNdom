@@ -17,9 +17,10 @@
     <app-controls
       [beat]="beat"
       [progressionMode]="progressionMode"
-      (changeBeat)="changeBeat($event)"
       (setProgression)="setProgression($event)"
-    ></app-controls>
+    >
+      <app-time-signature-selector (timeSignatureChange)="onTimeSignatureChange($event)"></app-time-signature-selector>
+    </app-controls>
 
     <div class="section">
       <div class="section-header selected-chords-header">

@@ -1,11 +1,8 @@
-
 <div class="section">
   <div class="section-header">
     <h2>Time Signature:</h2>
     <div class="beat-selection">
-      <button (click)="changeBeat.emit(4)" [class.active]="beat === 4">4/4</button>
-      <button (click)="changeBeat.emit(3)" [class.active]="beat === 3">3/4</button>
-      <button (click)="changeBeat.emit(2)" [class.active]="beat === 2">2/4</button>
+      <ng-content></ng-content>
     </div>
   </div>
 </div>

@@ -1,0 +1,9 @@
+<div class="slider-container">
+  <input type="range" id="numerator" min="1" max="16" [(ngModel)]="numerator" (input)="onTimeSignatureChange()" #numeratorSlider>
+  <output [style.left.%]="(numerator - 1) / (16 - 1) * 100">{{ numerator }}</output>
+</div>
+<div class="denominator-buttons">
+  <button *ngFor="let d of [2, 4, 8, 16]" (click)="setDenominator(d)" [class.active]="d === denominator">
+    {{ d }}
+  </button>
+</div>

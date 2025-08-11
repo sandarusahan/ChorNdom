@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   currentChordFingering: Voicing = { fingering: [] };
 
   beat = 4;
+  denominator = 4;
   dot = -1;
   
   chords: string[];
@@ -187,6 +188,7 @@ export class AppComponent implements OnInit {
   onTimeSignatureChange({ numerator, denominator }: { numerator: number, denominator: number }) {
     this.metronomeService.setTimeSignature(numerator, denominator);
     this.beat = numerator;
+    this.denominator = denominator;
   }
 
   all() {

@@ -20,6 +20,31 @@
   color: #888;
 }
 
+.fretboard-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.string-indicators {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 10px 0;
+  margin-right: 10px;
+}
+
+.string-indicator {
+  flex: 1;
+  text-align: center;
+  color: #888;
+}
+
+.muted-string {
+  font-weight: bold;
+  color: var(--text-color);
+}
+
 .fretboard {
   display: flex;
   flex-direction: row;

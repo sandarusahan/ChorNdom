@@ -1,5 +1,5 @@
 export interface Voicing {
-  fingering: (number | null)[];
+  fingering: (number | null | 'x')[];
   barre?: {
     fret: number;
     startString: number;

@@ -4,15 +4,22 @@
       {{ fret }}
     </div>
   </div>
-  <div class="fretboard" [class.show-nut]="showNut">
-    <div *ngFor="let fret of frets" class="fret">
-      <div *ngFor="let string of strings" class="string" [style.border-bottom-width]="getStringThickness(string)">
-        <div *ngIf="isFretted(string, fret) && !isBarre(fret, string)" class="dot"></div>
+  <div class="fretboard-wrapper">
+    <div class="string-indicators">
+      <div *ngFor="let string of strings" class="string-indicator">
+        <div *ngIf="isMuted(string)" class="muted-string">X</div>
       </div>
-      <div *ngIf="voicing.barre && voicing.barre.fret === fret" class="barre-container"
-           [style.top.%]="(voicing.barre.startString * 100 / 6)"
-           [style.height.%]="(voicing.barre.endString - voicing.barre.startString + 1) * 100 / 6">
-        <div class="barre"></div>
+    </div>
+    <div class="fretboard" [class.show-nut]="showNut">
+      <div *ngFor="let fret of frets" class="fret">
+        <div *ngFor="let string of strings" class="string" [style.border-bottom-width]="getStringThickness(string)">
+          <div *ngIf="isFretted(string, fret) && !isBarre(fret, string)" class="dot"></div>
+        </div>
+        <div *ngIf="voicing.barre && voicing.barre.fret === fret" class="barre-container"
+             [style.top.%]="(voicing.barre.startString * 100 / 6)"
+             [style.height.%]="(voicing.barre.endString - voicing.barre.startString + 1) * 100 / 6">
+          <div class="barre"></div>
+        </div>
       </div>
     </div>
   </div>

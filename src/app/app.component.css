@@ -23,8 +23,9 @@ footer {
   color: #888;
 }
 
-footer .fa-heart {
+footer .heart {
   color: var(--primary-color);
+  margin: 10px;
 }
 
 @media (max-width: 768px) {

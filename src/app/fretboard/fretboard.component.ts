@@ -58,6 +58,10 @@ export class FretboardComponent implements OnChanges {
     return this.voicing.barre.fret === fret && string >= this.voicing.barre.startString && string <= this.voicing.barre.endString;
   }
 
+  isMuted(string: number): boolean {
+    return this.voicing.fingering[string] === null;
+  }
+
   getStringThickness(string: number): string {
     const minThickness = 1;
     const maxThickness = 3;

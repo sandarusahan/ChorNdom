@@ -14,6 +14,7 @@ export class MetronomeService {
   private tempo$ = new BehaviorSubject<number>(120);
   private timeSignature$ = new BehaviorSubject<{ numerator: number, denominator: number }>({ numerator: 4, denominator: 4 });
   private isRunning$ = new BehaviorSubject<boolean>(false);
+  private isPaused$ = new BehaviorSubject<boolean>(false);
   private timerId?: number;
   private nextBeatTime = 0;
   private beatCount = 0;
@@ -36,8 +37,28 @@ export class MetronomeService {
       return;
     }
     this.isRunning$.next(false);
+    this.isPaused$.next(false);
     window.clearInterval(this.timerId);
     this.timerId = undefined;
+    this.beatCount = 0;
+  }
+
+  public pause() {
+    if (!this.isRunning$.value || this.isPaused$.value) {
+      return;
+    }
+    this.isPaused$.next(true);
+    window.clearInterval(this.timerId);
+    this.timerId = undefined;
+  }
+
+  public resume() {
+    if (!this.isRunning$.value || !this.isPaused$.value) {
+      return;
+    }
+    this.isPaused$.next(false);
+    this.nextBeatTime = this.audioService.currentTime;
+    this.timerId = window.setInterval(() => this.scheduleBeats(), 25);
   }
 
   public setTempo(tempo: number) {

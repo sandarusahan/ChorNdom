@@ -18,7 +18,8 @@
         <span *ngIf="!editingTempo">{{ tempo }} BPM</span>
         <input *ngIf="editingTempo" type="number" [(ngModel)]="tempo" (blur)="onUpdateTempo()" (keyup.enter)="onUpdateTempo()" min="1" max="500" autofocus>
       </div>
-      <button (click)="start.emit()" *ngIf="!started" class="start-button">Start</button>
+      <button (click)="start.emit()" *ngIf="!started || isPaused" class="start-button">{{ isPaused ? 'Resume' : 'Start' }}</button>
+      <button (click)="pause.emit()" *ngIf="started && !isPaused" class="start-button">Pause</button>
       <button (click)="stop.emit()" *ngIf="started" class="start-button">Stop</button>
       <button (click)="toggleMute.emit()" class="mute-button">
         <img [src]="muted ? 'assets/icons/mute.png' : 'assets/icons/unmute.png'" alt="Mute/Unmute">

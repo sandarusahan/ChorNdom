@@ -12,6 +12,7 @@ export class ChordDisplayComponent implements OnChanges {
   @Input() voicing: Voicing;
   @Input() dot: number;
   @Input() started: boolean;
+  @Input() isPaused: boolean;
   @Input() muted: boolean;
   @Input() tempo: number;
   @Input() beat: number;
@@ -27,6 +28,7 @@ export class ChordDisplayComponent implements OnChanges {
 
   @Output() start = new EventEmitter<void>();
   @Output() stop = new EventEmitter<void>();
+  @Output() pause = new EventEmitter<void>();
   @Output() toggleMute = new EventEmitter<void>();
   @Output() updateTempo = new EventEmitter<number>();
 

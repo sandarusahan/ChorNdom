@@ -99,13 +99,32 @@ footer .heart {
 }
 
 .chord-chip {
+  box-sizing: border-box;
+  position: relative;
   background-color: var(--primary-color);
   color: var(--light-text-color);
   padding: 10px 15px;
   border-radius: 10px;
   font-size: clamp(0.9rem, 2vw, 1rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
 }
 
+.chord-chip .remove-chord {
+  display: none;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.chord-chip:hover .remove-chord {
+  display: block;
+}
 .clear-all-button {
   background-color: var(--light-text-color);
   border: 1px solid var(--border-color);
@@ -132,4 +151,32 @@ footer .heart {
     flex-direction: row;
     justify-content: space-between;
   }
+}
+
+.cdk-drag-placeholder {
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  min-height: 44px;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 10px;
+  background-color: var(--primary-color);
+  color: var(--light-text-color);
+  padding: 10px 15px;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  position: relative;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drop-list-dragging .chord-chip:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }

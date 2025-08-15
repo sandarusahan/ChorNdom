@@ -6,12 +6,14 @@
       [voicing]="currentChordFingering"
       [dot]="dot"
       [started]="started"
+      [isPaused]="isPaused"
       [muted]="muted"
       [tempo]="tempo"
       [beat]="beat"
       [denominator]="denominator"
       (start)="start()"
       (stop)="stop()"
+      (pause)="pause()"
       (toggleMute)="toggleMute()"
       (updateTempo)="updateTempo($event)"
     ></app-chord-display>
@@ -28,9 +30,10 @@
         <h2>You Selected:</h2>
         <button (click)="clearAll()" class="clear-all-button">Clear All</button>
       </div>
-      <div class="selected-chords">
-        <div *ngFor="let item of selChords" class="chord-chip">
+      <div class="selected-chords" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+        <div *ngFor="let item of selChords; let i = index" class="chord-chip" cdkDrag>
           {{ item }}
+          <img src="assets/icons/close.png" class="remove-chord" (click)="removeChord(i)" alt="Remove chord">
         </div>
       </div>
     </div>

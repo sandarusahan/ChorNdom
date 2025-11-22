@@ -7,7 +7,7 @@
   <div class="fretboard-wrapper">
     <div class="string-indicators">
       <div *ngFor="let string of strings" class="string-indicator">
-        <div *ngIf="isMuted(string)" class="muted-string">X</div>
+        <span class="muted-string" [class.visible]="isMuted(string)">X</span>
       </div>
     </div>
     <div class="fretboard" [class.show-nut]="showNut">

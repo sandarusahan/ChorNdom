@@ -9,15 +9,17 @@
   display: flex;
   width: 100%;
   justify-content: space-around;
-  padding: 0 10px;
-  margin-bottom: 5px;
+  padding: 0 var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
   box-sizing: border-box;
 }
 
 .fret-number {
   flex: 1;
   text-align: center;
-  color: #888;
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.85rem;
 }
 
 .fretboard-wrapper {
@@ -30,45 +32,64 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding: 10px 0;
-  margin-right: 10px;
+  padding: var(--spacing-sm) 0;
+  margin-right: var(--spacing-sm);
 }
 
 .string-indicator {
   flex: 1;
   text-align: center;
-  color: #888;
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.5em;
+  width: 1.5em;
 }
 
 .muted-string {
-  font-weight: bold;
+  font-weight: 700;
   color: var(--text-color);
+  display: block;
+  line-height: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+}
+
+.muted-string.visible {
+  opacity: 1;
+  visibility: visible;
 }
 
 .fretboard {
   display: flex;
   flex-direction: row;
-  background-color: var(--secondary-color);
+  background: linear-gradient(180deg, #f4f3f0 0%, #e8e6e0 100%);
   width: 100%;
   aspect-ratio: 7 / 3;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-lg), inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
 }
 
 .fret {
   flex: 1;
-  border-right: 1px solid #c4bcae;
+  border-right: 2px solid #c4bcae;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 10px 0;
+  padding: var(--spacing-sm) 0;
   box-sizing: border-box;
 }
 
 .fretboard.show-nut .fret:first-child {
-  border-left: 5px solid #a99e8c;
+  border-left: 6px solid #8b7d6b;
+  box-shadow: inset 2px 0 4px rgba(0, 0, 0, 0.1);
 }
 
 .fret:last-child {
@@ -76,7 +97,7 @@
 }
 
 .string {
-  border-bottom: 1px solid #c4bcae;
+  border-bottom: 2px solid #c4bcae;
   box-sizing: border-box;
   position: relative;
 }
@@ -86,10 +107,12 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: clamp(12px, 2vw, 22px);
-  height: clamp(12px, 2vw, 22px);
-  background-color: #424242;
+  width: clamp(14px, 2vw, 24px);
+  height: clamp(14px, 2vw, 24px);
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
   border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .barre-container {
@@ -104,6 +127,8 @@
 .barre {
   width: 20%;
   height: 100%;
-  background: #424242;
-  border-radius: 5px;
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }

@@ -2,14 +2,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
-  gap: 40px;
+  margin-bottom: var(--spacing-xl);
+  gap: var(--spacing-2xl);
   flex-wrap: wrap;
+  padding: var(--spacing-lg) 0;
 }
 
 .fretboard-wrapper {
-  width: clamp(280px, 40vw, 500px);
+  width: clamp(320px, 45vw, 580px);
   flex-shrink: 0;
+  min-width: 320px;
 }
 
 .chord-info {
@@ -18,74 +20,148 @@
   justify-content: space-between;
   align-self: stretch;
   text-align: center;
+  gap: var(--spacing-md);
+  min-width: 200px;
+  flex: 1 1 auto;
 }
 
 .chord-info h1 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 700;
   margin: 0;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
 }
 
 .chord-info p {
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
-  color: #888;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: var(--text-secondary);
   margin: 0;
+  font-weight: 500;
 }
 
 .metronome-dot-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin: 10px 0;
+  gap: var(--spacing-sm);
+  margin: var(--spacing-md) 0;
   justify-content: center;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--secondary-light);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  min-height: 50px;
+  height: 50px;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  align-content: center;
 }
 
 .metronome-dot {
-  width: 12px;
-  height: 12px;
-  background-color: #e0e0e0;
+  width: 14px;
+  height: 14px;
+  background-color: var(--border-color);
   border-radius: 50%;
-  transition: background-color 0.1s;
+  transition: all var(--transition-fast);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .metronome-dot.active {
   background-color: var(--primary-color);
+  transform: scale(1.2);
+  box-shadow: 0 0 0 4px var(--primary-light), var(--shadow-sm);
 }
 .controls {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 20px;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .time-signature-display,
 .bpm-display {
   display: flex;
   align-items: center;
-  gap: 5px;
-  background-color: #f0f0f0;
-  padding: 8px 12px;
-  border-radius: 8px;
+  gap: var(--spacing-xs);
+  background-color: var(--secondary-light);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
   cursor: pointer;
+  border: 1px solid var(--border-color);
+  font-weight: 500;
+  transition: all var(--transition-base);
+  font-size: 0.95rem;
+}
+
+.time-signature-display:hover,
+.bpm-display:hover {
+  background-color: var(--light-text-color);
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.time-signature-display i,
+.bpm-display i {
+  color: var(--primary-color);
+  font-size: 1rem;
 }
 
 .start-button {
-  padding: 8px 20px;
-  border-radius: 8px;
-  background-color: #E57373;
-  color: white;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-hover) 100%);
+  color: var(--light-text-color);
   border: none;
   cursor: pointer;
   font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+  min-width: 80px;
+}
+
+.start-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.start-button:active {
+  transform: translateY(0);
 }
 
 .mute-button {
-  background: none;
-  border: none;
+  background: var(--secondary-light);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
   cursor: pointer;
+  padding: var(--spacing-sm);
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mute-button:hover {
+  background-color: var(--light-text-color);
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
 }
 
 .mute-button img {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
+  transition: transform var(--transition-fast);
+}
+
+.mute-button:hover img {
+  transform: scale(1.1);
 }

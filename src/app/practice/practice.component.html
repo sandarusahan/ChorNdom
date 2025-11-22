@@ -1,0 +1,54 @@
+<app-animated-logo *ngIf="isLoading"></app-animated-logo>
+
+<div class="practice-container" *ngIf="!isLoading">
+  <div class="practice-grid">
+    <!-- Main Practice Area -->
+    <div class="practice-main">
+      <div class="section-header">
+        <h2>Practice Studio</h2>
+      </div>
+
+      <div class="main-card">
+        <app-chord-display [chord]="chord" [nextChord]="nextChord" [voicing]="currentChordFingering" [dot]="dot"
+          [started]="started" [isPaused]="isPaused" [muted]="muted" [tempo]="tempo" [beat]="beat"
+          [denominator]="denominator" (start)="start()" (stop)="stop()" (pause)="pause()" (toggleMute)="toggleMute()"
+          (updateTempo)="updateTempo($event)"></app-chord-display>
+
+        <app-controls [beat]="beat" [progressionMode]="progressionMode" (setProgression)="setProgression($event)">
+          <app-time-signature-selector
+            (timeSignatureChange)="onTimeSignatureChange($event)"></app-time-signature-selector>
+        </app-controls>
+
+        <div class="section">
+          <div class="section-header selected-chords-header">
+            <h2>You Selected:</h2>
+            <button (click)="clearAll()" class="clear-all-button">Clear All</button>
+          </div>
+          <div class="selected-chords" cdkDropList cdkDropListOrientation="horizontal"
+            (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let item of selChords; let i = index" class="chord-chip" cdkDrag>
+              {{ item }}
+              <img src="assets/icons/close.png" class="remove-chord" (click)="removeChord(i)" alt="Remove chord">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <app-circle-of-fifths *ngIf="progressionMode === 'circleOfFifths'"
+        (familyChordsSelected)="onFamilyChordsSelected($event)" (chordSelected)="onCircleChordSelected($event)">
+      </app-circle-of-fifths>
+
+      <app-chord-selector *ngIf="progressionMode !== 'circleOfFifths'" [chords]="chords" [selChords]="selChords"
+        (selectChord)="cardOnClick($event)" (clearAll)="clearAll()" (selectChordType)="onSelectChordType($event)">
+      </app-chord-selector>
+    </div>
+
+    <!-- Right Sidebar Widgets -->
+    <div class="practice-sidebar">
+      <app-daily-challenge></app-daily-challenge>
+      <app-skills-tracker></app-skills-tracker>
+      <app-community-widget></app-community-widget>
+      <app-teacher-widget></app-teacher-widget>
+    </div>
+  </div>
+</div>

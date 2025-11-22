@@ -1,68 +1,87 @@
 .section {
-  margin-bottom: 30px;
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  background: var(--secondary-light);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
 }
 
 .section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: var(--spacing-md);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
 }
 
 .section h2 {
-  font-size: clamp(1.2rem, 3vw, 1.5rem);
-  font-weight: 500;
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+  font-weight: 600;
   margin: 0;
+  color: var(--text-color);
 }
 
 .chord-type-selection {
   display: flex;
-  gap: 10px;
+  gap: var(--spacing-xs);
+  flex-wrap: wrap;
 }
 
 .chord-type-selection button {
   background-color: var(--light-text-color);
   border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 8px 15px;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm) var(--spacing-md);
   cursor: pointer;
-  transition: all 0.3s;
-  margin: 3px;
+  transition: all var(--transition-base);
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-color);
 }
 
 .chord-type-selection button:hover {
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.chord-type-selection button.active {
-  background-color: var(--primary-color);
-  color: var(--light-text-color);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
   border-color: var(--primary-color);
 }
 
+.chord-type-selection button.active {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+  color: var(--light-text-color);
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-sm);
+}
 
 .filter-chords {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: var(--spacing-sm);
 }
 
 .filter-chords button {
   background-color: var(--light-text-color);
   border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 10px 15px;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm) var(--spacing-md);
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all var(--transition-base);
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-color);
 }
 
 .filter-chords button:hover {
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+  border-color: var(--primary-color);
 }
 
 .filter-chords button.selected {
-  background-color: var(--secondary-color);
+  background: linear-gradient(135deg, var(--secondary-color) 0%, #475569 100%);
+  color: var(--light-text-color);
   border-color: var(--secondary-color);
+  box-shadow: var(--shadow-sm);
 }
 
 @media (max-width: 768px) {

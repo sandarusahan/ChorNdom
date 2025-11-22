@@ -1,0 +1,49 @@
+<div class="dashboard-layout">
+    <aside class="sidebar">
+        <div class="logo">
+            <span class="material-icons">music_note</span>
+            <span>Practice On Strings</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a *ngFor="let item of navItems" [routerLink]="item.route" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: item.route === '/app'}" class="nav-item">
+                <span class="material-icons">{{ item.icon }}</span>
+                <span>{{ item.label }}</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <div class="avatar">
+                    <span class="material-icons">person</span>
+                </div>
+                <div class="user-info">
+                    <span class="name">Guitarist</span>
+                    <span class="status">Pro Member</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-bar">
+            <div class="breadcrumbs">
+                <!-- Dynamic breadcrumbs or title -->
+                <h2>Practice Studio</h2>
+            </div>
+            <div class="top-actions">
+                <button class="btn-icon">
+                    <span class="material-icons">notifications</span>
+                </button>
+                <button class="btn-icon">
+                    <span class="material-icons">settings</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="content-area">
+            <router-outlet></router-outlet>
+        </div>
+    </main>
+</div>

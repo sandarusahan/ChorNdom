@@ -1,0 +1,101 @@
+<nav class="navbar container">
+  <div class="logo">
+    <span class="material-icons">music_note</span>
+    <span>Practice On Strings</span>
+  </div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#community">Community</a>
+  </div>
+  <div class="nav-auth">
+    <button class="btn btn-outline">Log In</button>
+    <button class="btn btn-primary" routerLink="/app">Start Free Trial</button>
+  </div>
+</nav>
+
+<header class="hero container">
+  <div class="hero-content">
+    <h1>Master Guitar with AI & Experts</h1>
+    <p class="subtitle">Your personalized path from beginner to pro. Instant feedback, lessons, and a global community.
+    </p>
+    <button class="btn btn-primary btn-lg" routerLink="/app">Start Free Trial</button>
+  </div>
+  <div class="hero-image">
+    <!-- Placeholder for the hero image from design -->
+    <div class="image-placeholder">
+      <img src="assets/hero-guitarist.jpg" alt="Guitarist playing" onerror="this.style.display='none'">
+      <div class="glow-effect"></div>
+    </div>
+  </div>
+</header>
+
+<section id="features" class="features container">
+  <div class="section-header">
+    <h3>Unlock Your Potential</h3>
+  </div>
+  <div class="feature-grid">
+    <div class="feature-card" *ngFor="let feature of features">
+      <div class="icon-box">
+        <span class="material-icons">{{ feature.icon }}</span>
+      </div>
+      <div class="feature-text">
+        <h4>{{ feature.title }}</h4>
+        <p>{{ feature.body }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials container">
+  <div class="section-header">
+    <h3>Trusted by Thousands</h3>
+  </div>
+  <div class="testimonial-grid">
+    <div class="testimonial-card" *ngFor="let testimonial of testimonials">
+      <div class="quote-icon">“</div>
+      <p class="quote-text">{{ testimonial.quote }}</p>
+      <div class="testimonial-author">
+        <div class="avatar">
+          <!-- <img [src]="testimonial.image" alt="{{ testimonial.name }}"> -->
+          <span class="material-icons">person</span>
+        </div>
+        <div class="author-info">
+          <span class="name">{{ testimonial.name }}</span>
+        </div>
+      </div>
+      <div class="quote-end">”</div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="pricing container">
+  <div class="section-header">
+    <h3>Simple Pricing, Powerful Results</h3>
+  </div>
+  <div class="pricing-grid">
+    <div class="pricing-card" *ngFor="let plan of plans" [class.highlight]="plan.highlight">
+      <div class="card-content">
+        <h4>{{ plan.name }}</h4>
+        <div class="price-tag" *ngIf="plan.price">
+          <span class="amount">{{ plan.price }}</span>
+          <span class="cadence">{{ plan.cadence }}</span>
+        </div>
+
+        <ul class="feature-list" *ngIf="plan.features.length > 0">
+          <li *ngFor="let feature of plan.features">{{ feature }}</li>
+        </ul>
+
+        <div class="spacer"></div>
+
+        <button class="btn" [class.btn-primary]="plan.highlight" [class.btn-outline]="!plan.highlight">
+          {{ plan.buttonText }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer-cta container">
+  <h2>Ready to Play Your First Song?</h2>
+</footer>

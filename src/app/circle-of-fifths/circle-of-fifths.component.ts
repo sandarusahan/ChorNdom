@@ -1,10 +1,13 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ChordService } from '../chord.service';
 
 @Component({
   selector: 'app-circle-of-fifths',
   templateUrl: './circle-of-fifths.component.html',
-  styleUrls: ['./circle-of-fifths.component.css']
+  styleUrls: ['./circle-of-fifths.component.css'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class CircleOfFifthsComponent implements OnInit {
   @Output() chordSelected = new EventEmitter<string>();

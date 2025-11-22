@@ -1,0 +1,63 @@
+.widget-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.widget-header {
+    margin-bottom: var(--spacing-md);
+}
+
+.widget-header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.community-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.community-item {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-md);
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+}
+
+.community-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.icon-bg {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-content h4 {
+    font-size: 0.95rem;
+    margin: 0 0 2px 0;
+    color: var(--text-main);
+}
+
+.item-content p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0;
+}

@@ -1,10 +1,15 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Voicing } from '../chord';
+import { FretboardComponent } from '../fretboard/fretboard.component';
 
 @Component({
   selector: 'app-chord-display',
   templateUrl: './chord-display.component.html',
-  styleUrls: ['./chord-display.component.css']
+  styleUrls: ['./chord-display.component.css'],
+  standalone: true,
+  imports: [CommonModule, FormsModule, FretboardComponent]
 })
 export class ChordDisplayComponent implements OnChanges {
   @Input() chord: string;

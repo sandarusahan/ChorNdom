@@ -1,10 +1,13 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Voicing } from '../chord';
 
 @Component({
   selector: 'app-fretboard',
   templateUrl: './fretboard.component.html',
-  styleUrls: ['./fretboard.component.css']
+  styleUrls: ['./fretboard.component.css'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class FretboardComponent implements OnChanges {
   @Input() voicing: Voicing = { fingering: [] };

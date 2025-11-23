@@ -50,8 +50,8 @@ export class PracticeComponent implements OnInit, OnDestroy {
 
   title = 'Practice On Strings';
   isLoading: boolean = true;
-  nextChord = ':)';
-  chord = ':D';
+  nextChord = '...';
+  chord = '';
   currentChordFingering: Voicing = { fingering: [] };
 
   beat = 4;
@@ -68,6 +68,10 @@ export class PracticeComponent implements OnInit, OnDestroy {
   muted: boolean = true;
 
   tempo = 100;
+
+  // Countdown State
+  isCountingDown = false;
+  countdownValue = 3;
 
   private metronomeSubscription!: Subscription;
   private progressionIndex = 0;
@@ -95,6 +99,18 @@ export class PracticeComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.isLoading = false;
     }, this.LOADING_DURATION_MS);
+
+    // Preload audio to prevent start delay
+    this.audioService.loadSound('../assets/tones/Bass-Drum-2.wav').catch(err => {
+      console.error('Failed to preload audio:', err);
+    });
+  }
+
+  scrollToPractice() {
+    const element = document.querySelector('.main-card');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   }
 
   selCardOnClick(index: number) {
@@ -126,8 +142,7 @@ export class PracticeComponent implements OnInit, OnDestroy {
     }
     this.editingTempo = false;
     if (this.started) {
-      this.stop();
-      this.start();
+      this.metronomeService.setTempo(this.tempo);
     }
   }
 
@@ -146,67 +161,73 @@ export class PracticeComponent implements OnInit, OnDestroy {
   }
 
   async start() {
-    if (!this.started) {
-      try {
-        await this.audioService.loadSound('../assets/tones/Bass-Drum-2.wav');
-        this.audioService.setMuted(this.muted);
-        this.progressionIndex = 0;
-        this.audioError = ''; // Clear any previous errors
-      } catch (error) {
-        console.error('Failed to load audio:', error);
-        this.audioError = 'Failed to load audio file. Metronome will continue without sound.';
-        // Continue without audio - metronome will still work visually
-      }
-    }
+    if (!this.started && !this.isCountingDown) {
+      this.isCountingDown = true;
+      this.countdownValue = 3;
 
-    if (this.isPaused) {
+      // Start countdown
+      const countdownInterval = setInterval(() => {
+        this.countdownValue--;
+        if (this.countdownValue <= 0) {
+          clearInterval(countdownInterval);
+          this.isCountingDown = false;
+          this.beginPractice();
+        }
+      }, 1000);
+    } else if (this.isPaused) {
       this.metronomeService.resume();
       this.isPaused = false;
-    } else {
-      const initialProgressionChords = this.getProgressionChords();
-      if (initialProgressionChords.length === 0) {
-        return;
-      }
-      this.nextChord = initialProgressionChords[this.progressionIndex];
-
-      this.metronomeService.setTempo(this.tempo);
-      this.metronomeService.start();
-      let beatCount = 0;
-      this.metronomeSubscription = this.metronomeService.beat$.subscribe((beat) => {
-        this.dot = beat.beat;
-        beatCount++;
-
-        if (!this.muted) {
-          // Audio is played by the metronome service
-        }
-
-        if (beatCount % this.beat == 0) {
-          this.chord = this.nextChord;
-          const voicings = this.chordService.getChord(this.chord);
-          if (voicings && voicings.length > 0) {
-            this.currentChordFingering = voicings[0];
-          }
-
-          const progressionChords = this.getProgressionChords();
-
-          if (progressionChords.length === 0) {
-            this.stop();
-            return;
-          }
-
-          if (this.progressionIndex >= progressionChords.length) {
-            this.progressionIndex = 0;
-          }
-
-          if (this.progressionMode === 'random') {
-            this.progressionIndex = Math.floor(Math.random() * progressionChords.length);
-          } else {
-            this.progressionIndex = (this.progressionIndex + 1) % progressionChords.length;
-          }
-          this.nextChord = progressionChords[this.progressionIndex];
-        }
-      });
     }
+  }
+
+  async beginPractice() {
+    this.audioService.setMuted(this.muted);
+    this.progressionIndex = 0;
+    this.audioError = ''; // Clear any previous errors
+
+    const initialProgressionChords = this.getProgressionChords();
+    if (initialProgressionChords.length === 0) {
+      return;
+    }
+    this.nextChord = initialProgressionChords[this.progressionIndex];
+
+    this.metronomeService.setTempo(this.tempo);
+    this.metronomeService.start();
+    let beatCount = 0;
+    this.metronomeSubscription = this.metronomeService.beat$.subscribe((beat) => {
+      this.dot = beat.beat;
+      beatCount++;
+
+      if (!this.muted) {
+        // Audio is played by the metronome service
+      }
+
+      if (beat.beat === 1) {
+        this.chord = this.nextChord;
+        const voicings = this.chordService.getChord(this.chord);
+        if (voicings && voicings.length > 0) {
+          this.currentChordFingering = voicings[0];
+        }
+
+        const progressionChords = this.getProgressionChords();
+
+        if (progressionChords.length === 0) {
+          this.stop();
+          return;
+        }
+
+        if (this.progressionIndex >= progressionChords.length) {
+          this.progressionIndex = 0;
+        }
+
+        if (this.progressionMode === 'random') {
+          this.progressionIndex = Math.floor(Math.random() * progressionChords.length);
+        } else {
+          this.progressionIndex = (this.progressionIndex + 1) % progressionChords.length;
+        }
+        this.nextChord = progressionChords[this.progressionIndex];
+      }
+    });
 
     this.started = true;
   }
@@ -266,8 +287,10 @@ export class PracticeComponent implements OnInit, OnDestroy {
     this.started = false;
     this.isPaused = false;
     this.dot = -1;
-    this.chord = ':D';
-    this.nextChord = ':)';
+    this.isCountingDown = false;
+    this.countdownValue = 3;
+    this.chord = ''; // Clear default text
+    this.nextChord = '...';
     this.currentChordFingering = { fingering: [] };
   }
 

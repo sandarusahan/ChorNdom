@@ -15,6 +15,9 @@ export class MetronomeWidgetComponent implements OnInit, OnDestroy {
   tempo = 100;
   isPlaying = false;
   beat = 1;
+  timeSignature = '4/4';
+  beatsPerMeasure = 4;
+  beatsArray = [1, 2, 3, 4];
   private subscription!: Subscription;
 
   constructor(private metronomeService: MetronomeService) { }
@@ -39,6 +42,14 @@ export class MetronomeWidgetComponent implements OnInit, OnDestroy {
     if (this.isPlaying) {
       this.metronomeService.setTempo(this.tempo);
     }
+  }
+
+  setTimeSignature(ts: string) {
+    this.timeSignature = ts;
+    const [num, den] = ts.split('/').map(Number);
+    this.beatsPerMeasure = num;
+    this.beatsArray = Array(num).fill(0).map((x, i) => i + 1);
+    this.metronomeService.setTimeSignature(num, den);
   }
 
   ngOnDestroy() {

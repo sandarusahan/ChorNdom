@@ -1,19 +1,57 @@
-<div class="section">
-  <div class="section-header">
-    <h2>Time Signature:</h2>
+<div class="controls-container">
+  <div class="section playback-section">
+    <div class="section-header">
+      <h2>Playback</h2>
+    </div>
+    <div class="playback-controls">
+      <button (click)="start.emit()" *ngIf="(!started && !isCountingDown) || isPaused" class="control-btn start-btn">
+        <i class="fas fa-play"></i> {{ isPaused ? 'Resume' : 'Start' }}
+      </button>
+      <button (click)="pause.emit()" *ngIf="started && !isPaused && !isCountingDown" class="control-btn pause-btn">
+        <i class="fas fa-pause"></i> Pause
+      </button>
+      <button (click)="stop.emit()" *ngIf="started || isCountingDown" class="control-btn stop-btn">
+        <i class="fas fa-stop"></i> Stop
+      </button>
+
+      <div class="secondary-controls">
+        <div class="bpm-control">
+          <button class="bpm-adjust-btn" (click)="updateTempo.emit(tempo - 5)">-</button>
+          <div class="bpm-display" (click)="editTempo()">
+            <i class="fas fa-tachometer-alt"></i>
+            <span *ngIf="!editingTempo">{{ tempo }} BPM</span>
+            <input *ngIf="editingTempo" type="number" [(ngModel)]="tempo" (blur)="onUpdateTempo()"
+              (keyup.enter)="onUpdateTempo()" min="1" max="500" autofocus>
+          </div>
+          <button class="bpm-adjust-btn" (click)="updateTempo.emit(tempo + 5)">+</button>
+        </div>
+
+        <button (click)="toggleMute.emit()" class="icon-btn mute-btn">
+          <img [src]="muted ? 'assets/icons/mute.png' : 'assets/icons/unmute.png'" alt="Mute/Unmute">
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <h2>Time Signature</h2>
+    </div>
     <div class="beat-selection">
       <ng-content></ng-content>
     </div>
   </div>
-</div>
 
-<div class="section">
-  <div class="section-header">
-    <h2>Progression Mode:</h2>
+  <div class="section">
+    <div class="section-header">
+      <h2>Progression Mode</h2>
+    </div>
     <div class="progression-selection">
-      <button (click)="setProgression.emit('sequential')" [class.active]="progressionMode === 'sequential'">Sequential</button>
+      <button (click)="setProgression.emit('sequential')"
+        [class.active]="progressionMode === 'sequential'">Sequential</button>
       <button (click)="setProgression.emit('random')" [class.active]="progressionMode === 'random'">Random</button>
-      <button (click)="setProgression.emit('circleOfFifths')" [class.active]="progressionMode === 'circleOfFifths'">Circle of Fifths</button>
+      <button (click)="setProgression.emit('circleOfFifths')"
+        [class.active]="progressionMode === 'circleOfFifths'">Circle of Fifths</button>
     </div>
   </div>
 </div>

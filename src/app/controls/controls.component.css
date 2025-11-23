@@ -1,200 +1,215 @@
-.controls {
+.controls-container {
   display: flex;
-  gap: var(--spacing-sm);
-  margin-top: var(--spacing-lg);
-  flex-wrap: wrap;
-}
-
-.time-signature-display {
-  background-color: var(--secondary-light);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-size: 0.95rem;
-  display: flex;
-  align-items: center;
-  font-weight: 500;
-  transition: all var(--transition-base);
-}
-
-.time-signature-display:hover {
-  background-color: var(--light-text-color);
-  border-color: var(--primary-color);
-  box-shadow: var(--shadow-sm);
-}
-
-.time-signature-display .fa-music {
-  margin-right: var(--spacing-xs);
-  color: var(--primary-color);
-}
-
-.bpm-display {
-  background-color: var(--secondary-light);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-size: 0.95rem;
-  display: flex;
-  align-items: center;
-  font-weight: 500;
-  transition: all var(--transition-base);
-  cursor: pointer;
-}
-
-.bpm-display:hover {
-  background-color: var(--light-text-color);
-  border-color: var(--primary-color);
-  box-shadow: var(--shadow-sm);
-}
-
-.bpm-display .fa-tachometer-alt {
-  margin-right: var(--spacing-xs);
-  color: var(--primary-color);
-}
-
-.start-button {
-  background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-hover) 100%);
-  color: var(--light-text-color);
-  border: none;
-  border-radius: var(--radius-md);
-  padding: var(--spacing-sm) var(--spacing-lg);
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition-base);
-  box-shadow: var(--shadow-sm);
-  min-width: 80px;
-}
-
-.start-button:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-.start-button:active {
-  transform: translateY(0);
-}
-
-.mute-button {
-  background-color: var(--secondary-light);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  padding: var(--spacing-sm);
-  transition: all var(--transition-base);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.mute-button:hover {
-  background-color: var(--light-text-color);
-  border-color: var(--primary-color);
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-1px);
-}
-
-.mute-button img {
-  width: 20px;
-  height: 20px;
-  transition: transform var(--transition-fast);
-}
-
-.mute-button:hover img {
-  transform: scale(1.1);
+  flex-direction: column;
+  gap: 24px;
 }
 
 .section {
-  margin-bottom: var(--spacing-xl);
-  padding: var(--spacing-lg);
-  background: var(--secondary-light);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-color);
+  background: #1e1e1e;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--spacing-md);
-  flex-wrap: wrap;
-  gap: var(--spacing-md);
+  margin-bottom: 16px;
 }
 
-@media (max-width: 768px) {
-  .section-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--spacing-sm);
-  }
-}
-
-.section h2 {
-  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
-  font-weight: 600;
+.section-header h2 {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #888;
   margin: 0;
-  color: var(--text-color);
+  font-weight: 600;
 }
 
-.beat-selection {
+/* Playback Controls */
+.playback-controls {
   display: flex;
-  gap: var(--spacing-xs);
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.beat-selection button {
-  background-color: var(--light-text-color);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-sm) var(--spacing-md);
+.control-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all var(--transition-base);
-  font-weight: 500;
-  font-size: 0.9rem;
-  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
 }
 
-.beat-selection button:hover {
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-1px);
-  border-color: var(--primary-color);
+.start-btn {
+  background: #4caf50;
+  color: white;
+  box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
 }
 
-.beat-selection button.active {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
-  color: var(--light-text-color);
-  border-color: var(--primary-color);
-  box-shadow: var(--shadow-sm);
+.start-btn:hover {
+  background: #43a047;
+  transform: translateY(-2px);
 }
 
+.pause-btn {
+  background: #ff9800;
+  color: white;
+}
+
+.stop-btn {
+  background: #f44336;
+  color: white;
+}
+
+.secondary-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.bpm-control {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: #2c2c2c;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.bpm-adjust-btn {
+  background: transparent;
+  color: #888;
+  border: none;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.2s;
+  padding: 0;
+  /* Reset padding */
+}
+
+.bpm-adjust-btn:hover {
+  background: #3c3c3c;
+  color: #fff;
+}
+
+.bpm-display {
+  flex: 1;
+  background: transparent;
+  /* Remove background as container has it */
+  border-radius: 0;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  height: 32px;
+}
+
+.bpm-display:hover {
+  background: transparent;
+  /* Disable hover on inner display */
+}
+
+.bpm-display input {
+  background: #3c3c3c;
+  /* Slightly lighter background for input */
+  border: 1px solid #555;
+  border-radius: 4px;
+  color: #fff;
+  width: 60px;
+  /* Slightly wider */
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  -moz-appearance: textfield;
+  /* Firefox */
+  appearance: textfield;
+  padding: 2px 4px;
+}
+
+.bpm-display input::-webkit-outer-spin-button,
+.bpm-display input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.bpm-display input:focus {
+  outline: none;
+  border-color: #4caf50;
+  background: #444;
+}
+
+.icon-btn {
+  background: #2c2c2c;
+  border: none;
+  border-radius: 8px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.icon-btn:hover {
+  background: #3c3c3c;
+}
+
+.icon-btn img {
+  width: 24px;
+  height: 24px;
+  filter: invert(1);
+}
+
+/* Progression Selection */
 .progression-selection {
   display: flex;
-  gap: var(--spacing-xs);
-  flex-wrap: wrap;
-  justify-content: flex-start;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .progression-selection button {
-  background-color: var(--light-text-color);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-sm) var(--spacing-md);
-  cursor: pointer;
-  transition: all var(--transition-base);
+  background: #2c2c2c;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  color: #aaa;
   font-weight: 500;
-  font-size: 0.9rem;
-  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
 }
 
 .progression-selection button:hover {
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-1px);
-  border-color: var(--primary-color);
+  background: #333;
+  color: #fff;
 }
 
 .progression-selection button.active {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
-  color: var(--light-text-color);
-  border-color: var(--primary-color);
-  box-shadow: var(--shadow-sm);
+  background: #4caf50;
+  color: white;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+/* Beat Selection (Time Signature) */
+.beat-selection {
+  display: flex;
+  justify-content: center;
 }

@@ -1,29 +1,36 @@
 <div class="chord-display">
-  <div class="fretboard-wrapper">
-    <app-fretboard [voicing]="voicing"></app-fretboard>
-  </div>
-  <div class="chord-info">
-    <h1>{{ chord }}</h1>
-    <div class="metronome-dot-container">
-      <div *ngFor="let i of dots" class="metronome-dot" [class.active]="dot === i + 1"></div>
-    </div>
-    <p>Next Up: {{ nextChord }}</p>
-    <div class="controls">
-      <div class="time-signature-display">
-        <i class="fas fa-music"></i>
-        <span>{{ beat }}/{{ denominator }}</span>
+  <div class="chord-info" [class.paused]="isPaused">
+    <div class="current-chord-container">
+      <div class="chord-label" *ngIf="started || isCountingDown">Current Chord</div>
+
+      <!-- Content Area (Countdown OR Chord Name) - Fixed height to prevent jumping -->
+      <div class="chord-content-area">
+        <!-- Countdown Overlay -->
+        <div class="countdown-container" *ngIf="isCountingDown" @fadeInOut>
+          <div class="countdown-number">{{ countdownValue }}</div>
+        </div>
+
+        <!-- Chord Name (Hidden during countdown/start) -->
+        <h1 *ngIf="!isCountingDown && chord" @chordReveal>{{ chord }}</h1>
+
+        <!-- Placeholder when not started and not counting down -->
+        <div *ngIf="!isCountingDown && !chord" class="start-placeholder">
+          <!-- Empty placeholder -->
+        </div>
       </div>
-      <div class="bpm-display" (click)="editTempo()">
-        <i class="fas fa-tachometer-alt"></i>
-        <span *ngIf="!editingTempo">{{ tempo }} BPM</span>
-        <input *ngIf="editingTempo" type="number" [(ngModel)]="tempo" (blur)="onUpdateTempo()" (keyup.enter)="onUpdateTempo()" min="1" max="500" autofocus>
+      <div class="metronome-dot-container">
+        <div *ngFor="let i of dots" class="metronome-dot" [class.active]="dot === i + 1"></div>
       </div>
-      <button (click)="start.emit()" *ngIf="!started || isPaused" class="start-button">{{ isPaused ? 'Resume' : 'Start' }}</button>
-      <button (click)="pause.emit()" *ngIf="started && !isPaused" class="start-button">Pause</button>
-      <button (click)="stop.emit()" *ngIf="started" class="start-button">Stop</button>
-      <button (click)="toggleMute.emit()" class="mute-button">
-        <img [src]="muted ? 'assets/icons/mute.png' : 'assets/icons/unmute.png'" alt="Mute/Unmute">
-      </button>
     </div>
+
+    <div class="fretboard-wrapper" @slideDown [class.paused]="isPaused">
+      <app-fretboard [voicing]="voicing"></app-fretboard>
+    </div>
+
+    <div class="next-chord-container">
+      <p>Next Up: <strong>{{ nextChord }}</strong></p>
+    </div>
+
+
   </div>
 </div>

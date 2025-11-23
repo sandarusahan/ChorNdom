@@ -4,20 +4,19 @@
   <div class="practice-grid">
     <!-- Main Practice Area -->
     <div class="practice-main">
-      <div class="section-header">
-        <h2>Practice Studio</h2>
-      </div>
-
       <div class="main-card">
-        <app-chord-display [chord]="chord" [nextChord]="nextChord" [voicing]="currentChordFingering" [dot]="dot"
-          [started]="started" [isPaused]="isPaused" [muted]="muted" [tempo]="tempo" [beat]="beat"
-          [denominator]="denominator" (start)="start()" (stop)="stop()" (pause)="pause()" (toggleMute)="toggleMute()"
-          (updateTempo)="updateTempo($event)"></app-chord-display>
+        <app-chord-display [chord]="chord" [nextChord]="nextChord" [voicing]="currentChordFingering" [beat]="beat"
+          [dot]="dot" [started]="started" [isPaused]="isPaused" [muted]="muted" [tempo]="tempo"
+          [isCountingDown]="isCountingDown" [countdownValue]="countdownValue" [denominator]="denominator"
+          (start)="start()" (stop)="stop()" (pause)="pause()" (toggleMute)="toggleMute()"
+          (updateTempo)="updateTempo($event)">
+        </app-chord-display>
+
 
         <!-- AI Chord Feedback Section -->
         <div class="feedback-section">
           <div class="feedback-header">
-            <h3>AI Chord Feedback</h3>
+            <h3>AI Assistant</h3>
             <button class="btn-listen" [class.listening]="isListening" (click)="toggleListening()">
               <span class="material-icons">{{ isListening ? 'mic_off' : 'mic' }}</span>
               {{ isListening ? 'Stop Listening' : 'Start Listening' }}
@@ -33,14 +32,9 @@
           </div>
         </div>
 
-        <app-controls [beat]="beat" [progressionMode]="progressionMode" (setProgression)="setProgression($event)">
-          <app-time-signature-selector
-            (timeSignatureChange)="onTimeSignatureChange($event)"></app-time-signature-selector>
-        </app-controls>
-
         <div class="section">
           <div class="section-header selected-chords-header">
-            <h2>You Selected:</h2>
+            <h2>Progression Queue</h2>
             <button (click)="clearAll()" class="clear-all-button">Clear All</button>
           </div>
           <div class="selected-chords" cdkDropList cdkDropListOrientation="horizontal"
@@ -48,6 +42,9 @@
             <div *ngFor="let item of selChords; let i = index" class="chord-chip" cdkDrag>
               {{ item }}
               <img src="assets/icons/close.png" class="remove-chord" (click)="removeChord(i)" alt="Remove chord">
+            </div>
+            <div *ngIf="selChords.length === 0" style="color: #666; width: 100%; text-align: center; padding: 10px;">
+              Select chords below to build your progression
             </div>
           </div>
         </div>
@@ -64,12 +61,20 @@
 
     <!-- Right Sidebar Widgets -->
     <div class="practice-sidebar">
+      <app-controls [beat]="beat" [progressionMode]="progressionMode" [started]="started" [isPaused]="isPaused"
+        [muted]="muted" [tempo]="tempo" [isCountingDown]="isCountingDown" (setProgression)="setProgression($event)"
+        (start)="start()" (stop)="stop()" (pause)="pause()" (toggleMute)="toggleMute()"
+        (updateTempo)="updateTempo($event)">
+        <app-time-signature-selector
+          (timeSignatureChange)="onTimeSignatureChange($event)"></app-time-signature-selector>
+      </app-controls>
+
+      <!-- <app-daily-challenge></app-daily-challenge>
+      <app-skills-tracker></app-skills-tracker>
       <app-tuner-widget></app-tuner-widget>
       <app-metronome-widget></app-metronome-widget>
-      <app-daily-challenge></app-daily-challenge>
-      <app-skills-tracker></app-skills-tracker>
-      <app-community-widget></app-community-widget>
       <app-teacher-widget></app-teacher-widget>
+      <app-community-widget></app-community-widget> -->
     </div>
   </div>
 </div>

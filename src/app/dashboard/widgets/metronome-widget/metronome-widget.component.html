@@ -6,16 +6,23 @@
     </div>
 
     <div class="controls">
-        <button class="btn-adjust" (click)="tempo = tempo - 5; updateTempo()">-5</button>
-        <input type="range" min="40" max="200" [(ngModel)]="tempo" (change)="updateTempo()">
-        <button class="btn-adjust" (click)="tempo = tempo + 5; updateTempo()">+5</button>
+        <div class="time-sig-controls">
+            <button class="btn-small" [class.active]="timeSignature === '4/4'"
+                (click)="setTimeSignature('4/4')">4/4</button>
+            <button class="btn-small" [class.active]="timeSignature === '3/4'"
+                (click)="setTimeSignature('3/4')">3/4</button>
+            <button class="btn-small" [class.active]="timeSignature === '6/8'"
+                (click)="setTimeSignature('6/8')">6/8</button>
+        </div>
+        <div class="tempo-controls">
+            <button class="btn-adjust" (click)="tempo = tempo - 5; updateTempo()">-5</button>
+            <input type="range" min="40" max="200" [(ngModel)]="tempo" (change)="updateTempo()">
+            <button class="btn-adjust" (click)="tempo = tempo + 5; updateTempo()">+5</button>
+        </div>
     </div>
 
     <div class="beat-indicator">
-        <div class="dot" [class.active]="isPlaying && beat === 1"></div>
-        <div class="dot" [class.active]="isPlaying && beat > 1"></div>
-        <div class="dot" [class.active]="isPlaying && beat > 1"></div>
-        <div class="dot" [class.active]="isPlaying && beat > 1"></div>
+        <div class="dot" *ngFor="let b of beatsArray" [class.active]="isPlaying && beat === b"></div>
     </div>
 
     <button class="btn-toggle" [class.playing]="isPlaying" (click)="toggleMetronome()">

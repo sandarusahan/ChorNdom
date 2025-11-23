@@ -76,7 +76,7 @@ export class AudioService {
   private analyser: AnalyserNode | null = null;
   private microphoneStream: MediaStream | null = null;
   private bufferLength = 2048;
-  private dataArray: Float32Array = new Float32Array(this.bufferLength);
+  private dataArray = new Float32Array(this.bufferLength);
 
   public async startMicrophone(): Promise<void> {
     await this.initAudio();

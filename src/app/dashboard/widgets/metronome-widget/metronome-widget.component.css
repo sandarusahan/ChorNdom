@@ -34,6 +34,20 @@ h3 {
     justify-content: center;
     gap: 0.5rem;
     margin-bottom: 1rem;
+    flex-direction: column;
+}
+
+.time-sig-controls {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.tempo-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
 }
 
 input[type="range"] {
@@ -47,6 +61,26 @@ input[type="range"] {
     padding: 0.25rem 0.5rem;
     cursor: pointer;
     font-size: 0.875rem;
+}
+
+.btn-small {
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-small:hover {
+    background: #e0e0e0;
+}
+
+.btn-small.active {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
 }
 
 .beat-indicator {

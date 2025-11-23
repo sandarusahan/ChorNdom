@@ -9,8 +9,8 @@
     <a href="#community">Community</a>
   </div>
   <div class="nav-auth">
-    <button class="btn btn-outline">Log In</button>
-    <button class="btn btn-primary" routerLink="/app">Start Free Trial</button>
+    <button class="btn btn-outline" routerLink="/login">Log In</button>
+    <button class="btn btn-primary" routerLink="/signup">Start Free Trial</button>
   </div>
 </nav>
 
@@ -19,7 +19,7 @@
     <h1>Master Guitar with AI & Experts</h1>
     <p class="subtitle">Your personalized path from beginner to pro. Instant feedback, lessons, and a global community.
     </p>
-    <button class="btn btn-primary btn-lg" routerLink="/app">Start Free Trial</button>
+    <button class="btn btn-primary btn-lg" routerLink="/signup">Start Free Trial</button>
   </div>
   <div class="hero-image">
     <!-- Placeholder for the hero image from design -->
@@ -88,7 +88,8 @@
 
         <div class="spacer"></div>
 
-        <button class="btn" [class.btn-primary]="plan.highlight" [class.btn-outline]="!plan.highlight">
+        <button class="btn" [class.btn-primary]="plan.highlight" [class.btn-outline]="!plan.highlight"
+          (click)="onPlanSelect(plan.name)">
           {{ plan.buttonText }}
         </button>
       </div>

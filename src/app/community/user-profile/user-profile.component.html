@@ -1,0 +1,30 @@
+<div class="profile-container">
+    <div class="profile-header">
+        <img [src]="user.avatar" [alt]="user.name" class="avatar">
+        <div class="profile-info">
+            <h1>{{ user.name }}</h1>
+            <p class="bio">{{ user.bio }}</p>
+            <div class="stats">
+                <div class="stat">
+                    <span class="value">{{ user.posts }}</span>
+                    <span class="label">Posts</span>
+                </div>
+                <div class="stat">
+                    <span class="value">{{ user.followers }}</span>
+                    <span class="label">Followers</span>
+                </div>
+                <div class="stat">
+                    <span class="value">{{ user.following }}</span>
+                    <span class="label">Following</span>
+                </div>
+            </div>
+            <p class="joined">Joined {{ user.joined }}</p>
+        </div>
+        <div class="profile-actions">
+            <button class="btn-follow">Follow</button>
+            <button class="btn-report">
+                <span class="material-icons">flag</span>
+            </button>
+        </div>
+    </div>
+</div>

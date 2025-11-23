@@ -1,0 +1,25 @@
+<div class="lesson-detail-container">
+    <div class="back-link">
+        <a routerLink="/app/lessons">
+            <span class="material-icons">arrow_back</span> Back to Lessons
+        </a>
+    </div>
+
+    <div class="video-container">
+        <!-- <iframe width="100%" height="500" [src]="lesson.videoUrl | safe: 'resourceUrl'" frameborder="0"
+            allowfullscreen></iframe> -->
+        <div class="video-placeholder">
+            <span class="material-icons">play_circle_filled</span>
+            <p>Video Player Placeholder</p>
+        </div>
+    </div>
+
+    <div class="lesson-body">
+        <h1>{{ lesson.title }}</h1>
+        <div class="content" [innerHTML]="lesson.content"></div>
+
+        <div class="action-area">
+            <button class="btn-complete">Mark as Complete</button>
+        </div>
+    </div>
+</div>

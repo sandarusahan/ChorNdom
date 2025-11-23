@@ -1,0 +1,25 @@
+<div class="lessons-container">
+    <header class="lessons-header">
+        <h2>Your Learning Path</h2>
+        <p>Follow the structured path to master the guitar.</p>
+    </header>
+
+    <div class="lessons-grid">
+        <div class="lesson-card" *ngFor="let lesson of lessons" [routerLink]="['/app/lessons', lesson.id]">
+            <div class="lesson-thumbnail">
+                <img [src]="lesson.thumbnail" [alt]="lesson.title">
+                <div class="duration-badge">{{ lesson.duration }}</div>
+                <div class="completion-badge" *ngIf="lesson.completed">
+                    <span class="material-icons">check_circle</span>
+                </div>
+            </div>
+            <div class="lesson-content">
+                <h3>{{ lesson.title }}</h3>
+                <p>{{ lesson.description }}</p>
+                <button class="btn-start">
+                    {{ lesson.completed ? 'Review Lesson' : 'Start Lesson' }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

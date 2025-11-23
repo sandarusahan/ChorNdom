@@ -14,6 +14,25 @@
           [denominator]="denominator" (start)="start()" (stop)="stop()" (pause)="pause()" (toggleMute)="toggleMute()"
           (updateTempo)="updateTempo($event)"></app-chord-display>
 
+        <!-- AI Chord Feedback Section -->
+        <div class="feedback-section">
+          <div class="feedback-header">
+            <h3>AI Chord Feedback</h3>
+            <button class="btn-listen" [class.listening]="isListening" (click)="toggleListening()">
+              <span class="material-icons">{{ isListening ? 'mic_off' : 'mic' }}</span>
+              {{ isListening ? 'Stop Listening' : 'Start Listening' }}
+            </button>
+          </div>
+          <div class="feedback-display" *ngIf="isListening">
+            <div class="feedback-message" [class.success]="feedbackMessage.includes('Correct')">
+              {{ feedbackMessage }}
+            </div>
+            <div class="feedback-chord" *ngIf="feedbackChord">
+              Heard: <strong>{{ feedbackChord }}</strong>
+            </div>
+          </div>
+        </div>
+
         <app-controls [beat]="beat" [progressionMode]="progressionMode" (setProgression)="setProgression($event)">
           <app-time-signature-selector
             (timeSignatureChange)="onTimeSignatureChange($event)"></app-time-signature-selector>
@@ -45,6 +64,8 @@
 
     <!-- Right Sidebar Widgets -->
     <div class="practice-sidebar">
+      <app-tuner-widget></app-tuner-widget>
+      <app-metronome-widget></app-metronome-widget>
       <app-daily-challenge></app-daily-challenge>
       <app-skills-tracker></app-skills-tracker>
       <app-community-widget></app-community-widget>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-landing-page',
@@ -10,6 +10,8 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, RouterModule]
 })
 export class LandingPageComponent {
+  constructor(private router: Router) { }
+
   features = [
     {
       title: 'Interactive Practice Studio',
@@ -79,4 +81,18 @@ export class LandingPageComponent {
       image: 'assets/avatar2.jpg' // Placeholder
     }
   ];
+
+  onPlanSelect(planName: string): void {
+    switch (planName) {
+      case 'Free':
+        this.router.navigate(['/signup']);
+        break;
+      case 'Pro':
+        this.router.navigate(['/signup'], { queryParams: { plan: 'pro' } });
+        break;
+      case '1-on-1 Session':
+        this.router.navigate(['/app/mentorship']);
+        break;
+    }
+  }
 }

@@ -1,0 +1,48 @@
+<div class="settings-container">
+    <h2>Account Settings</h2>
+
+    <div class="settings-card">
+        <div class="section">
+            <h3>Profile Information</h3>
+            <div class="form-group">
+                <label>Display Name</label>
+                <input type="text" [(ngModel)]="settings.displayName">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" [(ngModel)]="settings.email">
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Preferences</h3>
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" [(ngModel)]="settings.notifications">
+                    Enable notifications
+                </label>
+            </div>
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" [(ngModel)]="settings.emailUpdates">
+                    Receive email updates
+                </label>
+            </div>
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" [(ngModel)]="settings.autoplay">
+                    Autoplay videos
+                </label>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="btn-save" (click)="onSave()" [disabled]="isSaving">
+                {{ isSaving ? 'Saving...' : 'Save Changes' }}
+            </button>
+            <button class="btn-subscription" routerLink="/app/profile/subscription">
+                Manage Subscription
+            </button>
+        </div>
+    </div>
+</div>

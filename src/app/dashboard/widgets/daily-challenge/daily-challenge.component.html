@@ -4,14 +4,23 @@
     </div>
     <div class="challenge-content">
         <div class="progression-preview">
-            <span class="chord-badge">G</span>
-            <span class="arrow">→</span>
-            <span class="chord-badge">C</span>
-            <span class="arrow">→</span>
-            <span class="chord-badge">Em</span>
-            <span class="arrow">→</span>
-            <span class="chord-badge">D</span>
+            <ng-container *ngFor="let chord of currentProgression; let last = last">
+                <span class="chord-badge">{{ chord }}</span>
+                <span class="arrow" *ngIf="!last">→</span>
+            </ng-container>
         </div>
-        <button class="btn-primary full-width">Start Challenge</button>
+
+        <div class="timer-display" *ngIf="isActive">
+            {{ timeLeft }}s
+        </div>
+
+        <div class="completion-message" *ngIf="isCompleted">
+            Challenge Completed! 🎉
+        </div>
+
+        <button class="btn-primary full-width" *ngIf="!isActive && !isCompleted" (click)="startChallenge()">Start
+            Challenge</button>
+        <button class="btn-success full-width" *ngIf="isActive" (click)="completeChallenge()">Complete</button>
+        <button class="btn-secondary full-width" *ngIf="isCompleted" (click)="startChallenge()">Try Again</button>
     </div>
 </div>

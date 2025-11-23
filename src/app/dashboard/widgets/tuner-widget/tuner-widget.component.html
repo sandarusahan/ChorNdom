@@ -1,0 +1,13 @@
+<div class="widget tuner-widget">
+    <h3>Tuner</h3>
+    <div class="tuner-display" [class.active]="isActive">
+        <div class="note">{{ note }}</div>
+        <div class="needle-container">
+            <div class="needle" [style.transform]="'rotate(' + (cents * 2) + 'deg)'"></div>
+        </div>
+        <div class="cents" *ngIf="isActive">{{ cents > 0 ? '+' : '' }}{{ cents }} cents</div>
+    </div>
+    <button class="btn-toggle" (click)="toggleTuner()">
+        {{ isActive ? 'Stop' : 'Start' }}
+    </button>
+</div>

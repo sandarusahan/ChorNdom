@@ -1,0 +1,34 @@
+<div class="call-container">
+    <div class="video-grid">
+        <div class="remote-video">
+            <div class="placeholder-video">
+                <span class="material-icons">person</span>
+                <p>Instructor Video</p>
+            </div>
+            <div class="remote-name">Sarah Johnson</div>
+        </div>
+
+        <div class="local-video" [class.video-off]="isVideoOff">
+            <div class="placeholder-video" *ngIf="isVideoOff">
+                <span class="material-icons">videocam_off</span>
+            </div>
+            <div class="local-name">You</div>
+        </div>
+    </div>
+
+    <div class="call-controls">
+        <div class="duration">{{ formattedDuration }}</div>
+
+        <button class="control-btn" [class.active]="isMuted" (click)="toggleMute()">
+            <span class="material-icons">{{ isMuted ? 'mic_off' : 'mic' }}</span>
+        </button>
+
+        <button class="control-btn" [class.active]="isVideoOff" (click)="toggleVideo()">
+            <span class="material-icons">{{ isVideoOff ? 'videocam_off' : 'videocam' }}</span>
+        </button>
+
+        <button class="control-btn end-call" routerLink="/app/mentorship">
+            <span class="material-icons">call_end</span>
+        </button>
+    </div>
+</div>

@@ -1,7 +1,7 @@
 
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AnimatedLogoComponent } from '../animated-logo/animated-logo.component';
 import { ChordDisplayComponent } from '../chord-display/chord-display.component';
 import { ChordSelectorComponent } from '../chord-selector/chord-selector.component';
@@ -18,6 +18,8 @@ import { DailyChallengeComponent } from '../dashboard/widgets/daily-challenge/da
 import { SkillsTrackerComponent } from '../dashboard/widgets/skills-tracker/skills-tracker.component';
 import { CommunityWidgetComponent } from '../dashboard/widgets/community-widget/community-widget.component';
 import { TeacherWidgetComponent } from '../dashboard/widgets/teacher-widget/teacher-widget.component';
+import { TunerWidgetComponent } from '../dashboard/widgets/tuner-widget/tuner-widget.component';
+import { MetronomeWidgetComponent } from '../dashboard/widgets/metronome-widget/metronome-widget.component';
 
 @Component({
   selector: 'app-practice',
@@ -37,11 +39,15 @@ import { TeacherWidgetComponent } from '../dashboard/widgets/teacher-widget/teac
     DailyChallengeComponent,
     SkillsTrackerComponent,
     CommunityWidgetComponent,
-    TeacherWidgetComponent
+    TeacherWidgetComponent,
+    TunerWidgetComponent,
+    MetronomeWidgetComponent
   ],
   animations: []
 })
-export class PracticeComponent implements OnInit {
+export class PracticeComponent implements OnInit, OnDestroy {
+  private readonly LOADING_DURATION_MS = 1500;
+
   title = 'Practice On Strings';
   isLoading: boolean = true;
   nextChord = ':)';
@@ -63,9 +69,18 @@ export class PracticeComponent implements OnInit {
 
   tempo = 100;
 
-  private metronomeSubscription: Subscription;
+  private metronomeSubscription!: Subscription;
   private progressionIndex = 0;
   private familyJustSelected = false;
+
+  // AI Chord Feedback
+  isListening = false;
+  feedbackChord = '';
+  feedbackMessage = '';
+  private feedbackSubscription!: Subscription;
+
+  // Error handling
+  audioError = '';
 
   constructor(
     private audioService: AudioService,
@@ -79,7 +94,7 @@ export class PracticeComponent implements OnInit {
   ngOnInit() {
     setTimeout(() => {
       this.isLoading = false;
-    }, 1500);
+    }, this.LOADING_DURATION_MS);
   }
 
   selCardOnClick(index: number) {
@@ -132,9 +147,16 @@ export class PracticeComponent implements OnInit {
 
   async start() {
     if (!this.started) {
-      await this.audioService.loadSound('../assets/tones/Bass-Drum-2.wav');
-      this.audioService.setMuted(this.muted);
-      this.progressionIndex = 0;
+      try {
+        await this.audioService.loadSound('../assets/tones/Bass-Drum-2.wav');
+        this.audioService.setMuted(this.muted);
+        this.progressionIndex = 0;
+        this.audioError = ''; // Clear any previous errors
+      } catch (error) {
+        console.error('Failed to load audio:', error);
+        this.audioError = 'Failed to load audio file. Metronome will continue without sound.';
+        // Continue without audio - metronome will still work visually
+      }
     }
 
     if (this.isPaused) {
@@ -259,6 +281,44 @@ export class PracticeComponent implements OnInit {
   toggleMute() {
     this.muted = !this.muted;
     this.audioService.setMuted(this.muted);
+  }
+
+  toggleListening() {
+    if (this.isListening) {
+      this.stopListening();
+    } else {
+      this.startListening();
+    }
+  }
+
+  private startListening() {
+    this.isListening = true;
+    this.feedbackMessage = 'Listening...';
+    this.feedbackSubscription = this.audioService.startListening().subscribe(chord => {
+      this.feedbackChord = chord;
+      if (chord === this.chord) {
+        this.feedbackMessage = 'Correct! Great job!';
+      } else {
+        this.feedbackMessage = `Heard ${chord}, try again!`;
+      }
+    });
+  }
+
+  private stopListening() {
+    this.isListening = false;
+    this.feedbackMessage = '';
+    this.feedbackChord = '';
+    this.audioService.stopListening();
+    if (this.feedbackSubscription) {
+      this.feedbackSubscription.unsubscribe();
+    }
+  }
+
+  ngOnDestroy() {
+    this.stopListening();
+    if (this.metronomeSubscription) {
+      this.metronomeSubscription.unsubscribe();
+    }
   }
 }
 

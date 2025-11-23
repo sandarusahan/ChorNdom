@@ -23,10 +23,11 @@ export class MetronomeService {
 
   constructor(private audioService: AudioService) { }
 
-  public start() {
+  public async start() {
     if (this.isRunning$.value) {
       return;
     }
+    await this.audioService.initAudio();
     this.isRunning$.next(true);
     this.nextBeatTime = this.audioService.currentTime;
     this.timerId = window.setInterval(() => this.scheduleBeats(), 25);
@@ -76,7 +77,7 @@ export class MetronomeService {
 
     while (this.nextBeatTime < this.audioService.currentTime + 0.1) {
       this.beat$.next({ beat: this.beatCount % numerator + 1, time: this.nextBeatTime });
-      this.audioService.playSoundAt(this.nextBeatTime);
+      this.audioService.synthesizeClick(this.nextBeatTime);
       this.nextBeatTime += beatDuration;
       this.beatCount++;
     }

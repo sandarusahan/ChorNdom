@@ -1,0 +1,131 @@
+.call-container {
+    height: calc(100vh - 100px);
+    background: #202124;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.video-grid {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+}
+
+.remote-video {
+    width: 100%;
+    height: 100%;
+    background: #3c4043;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.placeholder-video {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #9aa0a6;
+}
+
+.placeholder-video .material-icons {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.remote-name {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.local-video {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    width: 200px;
+    height: 150px;
+    background: #5f6368;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.local-video.video-off {
+    background: #3c4043;
+}
+
+.local-name {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: white;
+    font-size: 0.8rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.call-controls {
+    height: 80px;
+    background: #202124;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+.duration {
+    color: white;
+    font-variant-numeric: tabular-nums;
+    margin-right: 1rem;
+}
+
+.control-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background: #3c4043;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.control-btn:hover {
+    background: #45494e;
+}
+
+.control-btn.active {
+    background: #ea4335;
+    color: white;
+}
+
+.control-btn.end-call {
+    background: #ea4335;
+    width: 60px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.control-btn.end-call:hover {
+    background: #d93025;
+}

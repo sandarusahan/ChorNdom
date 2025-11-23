@@ -1,0 +1,35 @@
+<div class="instructors-container">
+    <header class="instructors-header">
+        <h2>Find Your Mentor</h2>
+        <p>Book 1-on-1 sessions with expert guitar instructors.</p>
+    </header>
+
+    <div class="instructors-grid">
+        <div class="instructor-card" *ngFor="let instructor of instructors">
+            <div class="instructor-header">
+                <img [src]="instructor.avatar" [alt]="instructor.name" class="avatar">
+                <div class="instructor-info">
+                    <h3>{{ instructor.name }}</h3>
+                    <p class="specialty">{{ instructor.specialty }}</p>
+                    <div class="rating">
+                        <span class="material-icons">star</span>
+                        <span>{{ instructor.rating }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="instructor-details">
+                <div class="detail-row">
+                    <span class="label">Rate</span>
+                    <span class="value">${{ instructor.rate }}/hr</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Availability</span>
+                    <span class="value">{{ instructor.availability }}</span>
+                </div>
+            </div>
+            <button class="btn-book" [routerLink]="['/app/mentorship/book', instructor.id]">
+                Book Session
+            </button>
+        </div>
+    </div>
+</div>

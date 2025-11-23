@@ -3,17 +3,26 @@
         <h3>Skills Tracker</h3>
     </div>
     <div class="skills-graph">
-        <!-- Placeholder for graph -->
-        <div class="graph-placeholder">
-            <div class="node" style="top: 20%; left: 50%"></div>
-            <div class="node" style="top: 50%; left: 20%"></div>
-            <div class="node" style="top: 50%; left: 80%"></div>
-            <div class="node" style="top: 80%; left: 50%"></div>
-            <svg class="connections">
-                <line x1="50%" y1="20%" x2="20%" y2="50%" />
-                <line x1="50%" y1="20%" x2="80%" y2="50%" />
-                <line x1="20%" y1="50%" x2="50%" y2="80%" />
-                <line x1="80%" y1="50%" x2="50%" y2="80%" />
+        <div class="graph-container">
+            <svg viewBox="0 0 100 100" class="radar-chart">
+                <!-- Background Grid -->
+                <circle cx="50" cy="50" r="40" class="grid-circle" />
+                <circle cx="50" cy="50" r="20" class="grid-circle" />
+
+                <!-- Axes -->
+                <line x1="50" y1="50" x2="50" y2="10" class="grid-line" />
+                <line x1="50" y1="50" x2="90" y2="50" class="grid-line" />
+                <line x1="50" y1="50" x2="50" y2="90" class="grid-line" />
+                <line x1="50" y1="50" x2="10" y2="50" class="grid-line" />
+
+                <!-- Data Polygon -->
+                <polygon [attr.points]="getPoints()" class="data-polygon" />
+
+                <!-- Labels (Simplified positioning) -->
+                <text x="50" y="5" text-anchor="middle" class="label">Chords</text>
+                <text x="95" y="50" text-anchor="start" dominant-baseline="middle" class="label">Rhythm</text>
+                <text x="50" y="98" text-anchor="middle" class="label">Theory</text>
+                <text x="5" y="50" text-anchor="end" dominant-baseline="middle" class="label">Ear</text>
             </svg>
         </div>
     </div>

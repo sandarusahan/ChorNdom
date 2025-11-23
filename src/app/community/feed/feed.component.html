@@ -1,0 +1,34 @@
+<div class="feed-container">
+    <header class="feed-header">
+        <h2>Community Feed</h2>
+        <button class="btn-create-post" routerLink="/app/community/create">
+            <span class="material-icons">add</span> Create Post
+        </button>
+    </header>
+
+    <div class="posts-list">
+        <div class="post-card" *ngFor="let post of posts">
+            <div class="post-header">
+                <img [src]="post.authorAvatar" class="avatar" [alt]="post.author">
+                <div class="author-info">
+                    <span class="author-name">{{ post.author }}</span>
+                    <span class="timestamp">{{ post.timestamp }}</span>
+                </div>
+            </div>
+            <div class="post-content">
+                <p>{{ post.content }}</p>
+            </div>
+            <div class="post-actions">
+                <button class="action-btn" (click)="likePost(post)">
+                    <span class="material-icons">thumb_up</span> {{ post.likes }}
+                </button>
+                <button class="action-btn">
+                    <span class="material-icons">comment</span> {{ post.comments }}
+                </button>
+                <button class="action-btn">
+                    <span class="material-icons">share</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

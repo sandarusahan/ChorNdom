@@ -6,21 +6,33 @@
         </div>
 
         <nav class="sidebar-nav">
-            <a *ngFor="let item of navItems" [routerLink]="item.route" routerLinkActive="active"
-                [routerLinkActiveOptions]="{exact: item.route === '/app'}" class="nav-item">
-                <span class="material-icons">{{ item.icon }}</span>
-                <span>{{ item.label }}</span>
+            <a routerLink="/app" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
+                <span class="material-icons">music_note</span>
+                <span>Practice</span>
+            </a>
+            <a routerLink="/app/lessons" routerLinkActive="active" class="nav-item">
+                <span class="material-icons">school</span>
+                <span>Lessons</span>
+            </a>
+            <a routerLink="/app/community" routerLinkActive="active" class="nav-item">
+                <span class="material-icons">forum</span>
+                <span>Community</span>
+            </a>
+            <a routerLink="/app/mentorship" routerLinkActive="active" class="nav-item">
+                <span class="material-icons">video_call</span>
+                <span>Mentorship</span>
             </a>
         </nav>
 
         <div class="sidebar-footer">
-            <div class="user-profile">
+            <div class="user-profile" *ngIf="user">
                 <div class="avatar">
-                    <span class="material-icons">person</span>
+                    <img *ngIf="user.photoURL" [src]="user.photoURL" alt="User avatar">
+                    <span *ngIf="!user.photoURL" class="material-icons">person</span>
                 </div>
                 <div class="user-info">
-                    <span class="name">Guitarist</span>
-                    <span class="status">Pro Member</span>
+                    <span class="name">{{ user.displayName || 'User' }}</span>
+                    <span class="status">{{ user.isPro ? 'Pro Member' : 'Free Member' }}</span>
                 </div>
             </div>
         </div>
@@ -33,10 +45,11 @@
                 <h2>Practice Studio</h2>
             </div>
             <div class="top-actions">
-                <button class="btn-icon">
+                <button class="btn-pro" routerLink="/app/profile/subscription">Start Pro Trial</button>
+                <button class="btn-icon" (click)="onNotificationsClick()">
                     <span class="material-icons">notifications</span>
                 </button>
-                <button class="btn-icon">
+                <button class="btn-icon" routerLink="/app/profile/settings">
                     <span class="material-icons">settings</span>
                 </button>
             </div>

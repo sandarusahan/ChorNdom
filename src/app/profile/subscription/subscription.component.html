@@ -1,0 +1,46 @@
+<div class="subscription-container">
+    <h2>Subscription Plans</h2>
+
+    <div class="plans-grid">
+        <!-- Current Plan -->
+        <div class="plan-card current">
+            <div class="badge">Current Plan</div>
+            <h3>{{ currentPlan.name }}</h3>
+            <div class="price">
+                <span class="amount">${{ currentPlan.price }}</span>
+                <span class="period">/month</span>
+            </div>
+            <ul class="features">
+                <li *ngFor="let feature of currentPlan.features">
+                    <span class="material-icons">check</span>
+                    {{ feature }}
+                </li>
+            </ul>
+        </div>
+
+        <!-- Pro Plan -->
+        <div class="plan-card pro">
+            <div class="badge pro-badge">Recommended</div>
+            <h3>{{ proPlan.name }}</h3>
+            <div class="price">
+                <span class="amount">${{ proPlan.price }}</span>
+                <span class="period">/month</span>
+            </div>
+            <ul class="features">
+                <li *ngFor="let feature of proPlan.features">
+                    <span class="material-icons">check</span>
+                    {{ feature }}
+                </li>
+            </ul>
+            <button class="btn-upgrade" (click)="upgradeToPro()" [disabled]="isProcessing">
+                {{ isProcessing ? 'Processing...' : 'Upgrade to Pro' }}
+            </button>
+        </div>
+    </div>
+
+    <div class="back-link">
+        <a routerLink="/app/profile/settings">
+            <span class="material-icons">arrow_back</span> Back to Settings
+        </a>
+    </div>
+</div>

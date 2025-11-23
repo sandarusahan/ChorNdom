@@ -1,0 +1,107 @@
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.profile-header {
+    display: flex;
+    gap: 2rem;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    align-items: flex-start;
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #f8f9fa;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+h1 {
+    margin: 0 0 0.5rem;
+    color: #333;
+}
+
+.bio {
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.stats {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat .value {
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: #333;
+}
+
+.stat .label {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.joined {
+    font-size: 0.85rem;
+    color: #999;
+    margin: 0;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-follow {
+    padding: 0.5rem 1.5rem;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-follow:hover {
+    background: #0056b3;
+}
+
+.btn-report {
+    background: none;
+    border: 1px solid #ddd;
+    color: #666;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-report:hover {
+    background: #fff5f5;
+    border-color: #dc3545;
+    color: #dc3545;
+}

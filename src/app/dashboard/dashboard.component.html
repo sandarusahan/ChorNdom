@@ -10,18 +10,18 @@
                 <span class="material-icons">music_note</span>
                 <span>Practice</span>
             </a>
-            <a routerLink="/app/lessons" routerLinkActive="active" class="nav-item">
+            <!-- <a routerLink="/app/lessons" routerLinkActive="active" class="nav-item">
                 <span class="material-icons">school</span>
                 <span>Lessons</span>
-            </a>
+            </a> -->
             <a routerLink="/app/community" routerLinkActive="active" class="nav-item">
                 <span class="material-icons">forum</span>
                 <span>Community</span>
             </a>
-            <a routerLink="/app/mentorship" routerLinkActive="active" class="nav-item">
+            <!-- <a routerLink="/app/mentorship" routerLinkActive="active" class="nav-item">
                 <span class="material-icons">video_call</span>
                 <span>Mentorship</span>
-            </a>
+            </a> -->
         </nav>
 
         <div class="sidebar-footer">
@@ -32,7 +32,7 @@
                 </div>
                 <div class="user-info">
                     <span class="name">{{ user.displayName || 'User' }}</span>
-                    <span class="status">{{ user.isPro ? 'Pro Member' : 'Free Member' }}</span>
+                    <span class="status">{{ user.isPro ? 'Premium Member' : 'Free Member' }}</span>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
                 <h2>Practice Studio</h2>
             </div>
             <div class="top-actions">
-                <button class="btn-pro" routerLink="/app/profile/subscription">Start Pro Trial</button>
+                <button class="btn-pro" routerLink="/app/profile/subscription" *ngIf="!user?.isPro">Go Premium</button>
                 <button class="btn-icon" (click)="onNotificationsClick()">
                     <span class="material-icons">notifications</span>
                 </button>
@@ -56,6 +56,7 @@
         </header>
 
         <div class="content-area">
+            <app-ad-banner></app-ad-banner>
             <router-outlet></router-outlet>
         </div>
     </main>

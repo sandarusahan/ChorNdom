@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import HALO from 'vanta/dist/vanta.halo.min';
+import * as THREE from 'three';
 
 @Component({
   selector: 'app-landing-page',
@@ -9,24 +11,49 @@ import { Router, RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterModule]
 })
-export class LandingPageComponent {
+export class LandingPageComponent implements OnInit, OnDestroy {
+  @ViewChild('vantaRef', { static: true }) vantaRef: ElementRef;
+  private vantaEffect: any;
+
   constructor(private router: Router) { }
+
+  ngOnInit() {
+    this.vantaEffect = HALO({
+      el: this.vantaRef.nativeElement,
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      baseColor: 0x11998e, // Primary Teal
+      backgroundColor: 0x0f1115, // Dark Background
+      amplitudeFactor: 1.00, // More subtle movement
+      xOffset: 0.45,
+      yOffset: 0.05,
+      size: 1.20, // Smaller size
+      THREE: THREE
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.vantaEffect) {
+      this.vantaEffect.destroy();
+    }
+  }
 
   features = [
     {
       title: 'Interactive Practice Studio',
-      body: 'Visualize finger positions, get real-time AI feedback',
-      icon: 'mic_external_on' // Using Material Icons name
+      body: 'Visualize finger positions and practice chord changes',
+      icon: 'music_note'
+    },
+    {
+      title: 'Daily Challenges',
+      body: 'Master common chord progressions with curated challenges',
+      icon: 'emoji_events'
     },
     {
       title: 'Vibrant Community',
       body: 'Ask questions, share progress, connect to other guitarists',
       icon: 'forum'
-    },
-    {
-      title: '1-on-1 Mentorship',
-      body: 'Book a 30-min session with certified instructor',
-      icon: 'school'
     },
   ];
 
@@ -38,47 +65,40 @@ export class LandingPageComponent {
       features: [
         'Basic Tuner',
         'Metronome',
-        'Limited Chord Library',
-        'First 7 Lessons',
-        'Unlimited Lessons',
-        'AI Feedback Tests',
-        'Full Community Access',
-        'Full Connections',
-        'Practice Stats'
+        'Chord Library',
+        'Daily Challenges',
+        'Practice Stats',
+        'Ad-supported'
       ],
       highlight: false,
-      buttonText: 'Start Free Trial' // Or just Sign Up
+      buttonText: 'Start Practicing'
     },
     {
-      name: 'Pro',
-      price: '$19',
-      cadence: '/month',
-      features: [], // The design doesn't list features here, just price
+      name: 'Premium',
+      price: '£0.99',
+      cadence: 'one-time',
+      features: [
+        'Remove Ads',
+        'Support Development',
+        'All Free Features'
+      ],
       highlight: true,
-      buttonText: 'Start Pro Trial'
-    },
-    {
-      name: '1-on-1 Session',
-      price: '$20',
-      cadence: '/session',
-      features: ['Book 30-min live video call with instructor'],
-      highlight: false,
-      buttonText: 'Browse Instructors'
-    },
+      buttonText: 'Go Premium'
+    }
   ];
 
   testimonials = [
     {
-      quote: 'Practice On Strings made learning guitar fun! The AI feedback is a game changer.',
+      quote: 'Practice On Strings made learning guitar fun! The daily challenges keep me motivated.',
       name: 'Sarah L.',
       role: '',
-      image: 'assets/avatar1.jpg' // Placeholder
+      image: 'assets/avatar1.jpg'
     },
     {
       quote: 'Finally an app that actually helps you improve. The community is super supportive.',
       name: 'Mark T.',
       role: '',
-      image: 'assets/avatar2.jpg' // Placeholder
+      image: 'assets/avatar2.jpg'
     }
   ];
 
@@ -87,11 +107,8 @@ export class LandingPageComponent {
       case 'Free':
         this.router.navigate(['/signup']);
         break;
-      case 'Pro':
-        this.router.navigate(['/signup'], { queryParams: { plan: 'pro' } });
-        break;
-      case '1-on-1 Session':
-        this.router.navigate(['/app/mentorship']);
+      case 'Premium':
+        this.router.navigate(['/signup'], { queryParams: { plan: 'premium' } });
         break;
     }
   }

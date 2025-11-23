@@ -1,5 +1,5 @@
 <div class="subscription-container">
-    <h2>Subscription Plans</h2>
+    <h2>Premium Features</h2>
 
     <div class="plans-grid">
         <!-- Current Plan -->
@@ -7,8 +7,7 @@
             <div class="badge">Current Plan</div>
             <h3>{{ currentPlan.name }}</h3>
             <div class="price">
-                <span class="amount">${{ currentPlan.price }}</span>
-                <span class="period">/month</span>
+                <span class="amount">£{{ currentPlan.price }}</span>
             </div>
             <ul class="features">
                 <li *ngFor="let feature of currentPlan.features">
@@ -18,22 +17,22 @@
             </ul>
         </div>
 
-        <!-- Pro Plan -->
+        <!-- Premium Plan -->
         <div class="plan-card pro">
-            <div class="badge pro-badge">Recommended</div>
-            <h3>{{ proPlan.name }}</h3>
+            <div class="badge pro-badge">One-Time Purchase</div>
+            <h3>{{ premiumPlan.name }}</h3>
             <div class="price">
-                <span class="amount">${{ proPlan.price }}</span>
-                <span class="period">/month</span>
+                <span class="amount">£{{ premiumPlan.price }}</span>
+                <span class="period">once</span>
             </div>
             <ul class="features">
-                <li *ngFor="let feature of proPlan.features">
+                <li *ngFor="let feature of premiumPlan.features">
                     <span class="material-icons">check</span>
                     {{ feature }}
                 </li>
             </ul>
-            <button class="btn-upgrade" (click)="upgradeToPro()" [disabled]="isProcessing">
-                {{ isProcessing ? 'Processing...' : 'Upgrade to Pro' }}
+            <button class="btn-upgrade" (click)="buyPremium()" [disabled]="isProcessing">
+                {{ isProcessing ? 'Processing...' : 'Remove Ads (£0.99)' }}
             </button>
         </div>
     </div>

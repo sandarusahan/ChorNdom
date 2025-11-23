@@ -17,7 +17,6 @@ import { RouterLink } from '@angular/router';
 import { DailyChallengeComponent } from '../dashboard/widgets/daily-challenge/daily-challenge.component';
 import { SkillsTrackerComponent } from '../dashboard/widgets/skills-tracker/skills-tracker.component';
 import { CommunityWidgetComponent } from '../dashboard/widgets/community-widget/community-widget.component';
-import { TeacherWidgetComponent } from '../dashboard/widgets/teacher-widget/teacher-widget.component';
 import { TunerWidgetComponent } from '../dashboard/widgets/tuner-widget/tuner-widget.component';
 import { MetronomeWidgetComponent } from '../dashboard/widgets/metronome-widget/metronome-widget.component';
 
@@ -39,7 +38,6 @@ import { MetronomeWidgetComponent } from '../dashboard/widgets/metronome-widget/
     DailyChallengeComponent,
     SkillsTrackerComponent,
     CommunityWidgetComponent,
-    TeacherWidgetComponent,
     TunerWidgetComponent,
     MetronomeWidgetComponent
   ],
@@ -76,12 +74,6 @@ export class PracticeComponent implements OnInit, OnDestroy {
   private metronomeSubscription!: Subscription;
   private progressionIndex = 0;
   private familyJustSelected = false;
-
-  // AI Chord Feedback
-  isListening = false;
-  feedbackChord = '';
-  feedbackMessage = '';
-  private feedbackSubscription!: Subscription;
 
   // Error handling
   audioError = '';
@@ -306,39 +298,7 @@ export class PracticeComponent implements OnInit, OnDestroy {
     this.audioService.setMuted(this.muted);
   }
 
-  toggleListening() {
-    if (this.isListening) {
-      this.stopListening();
-    } else {
-      this.startListening();
-    }
-  }
-
-  private startListening() {
-    this.isListening = true;
-    this.feedbackMessage = 'Listening...';
-    this.feedbackSubscription = this.audioService.startListening().subscribe(chord => {
-      this.feedbackChord = chord;
-      if (chord === this.chord) {
-        this.feedbackMessage = 'Correct! Great job!';
-      } else {
-        this.feedbackMessage = `Heard ${chord}, try again!`;
-      }
-    });
-  }
-
-  private stopListening() {
-    this.isListening = false;
-    this.feedbackMessage = '';
-    this.feedbackChord = '';
-    this.audioService.stopListening();
-    if (this.feedbackSubscription) {
-      this.feedbackSubscription.unsubscribe();
-    }
-  }
-
   ngOnDestroy() {
-    this.stopListening();
     if (this.metronomeSubscription) {
       this.metronomeSubscription.unsubscribe();
     }

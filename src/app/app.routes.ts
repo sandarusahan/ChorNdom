@@ -15,13 +15,15 @@ export const appRoutes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: '', component: PracticeComponent },
-      { path: 'lessons', loadComponent: () => import('./lessons/lesson-list/lesson-list.component').then(m => m.LessonListComponent) },
-      { path: 'lessons/:id', loadComponent: () => import('./lessons/lesson-detail/lesson-detail.component').then(m => m.LessonDetailComponent) },
+      // { path: 'lessons', loadComponent: () => import('./lessons/lesson-list/lesson-list.component').then(m => m.LessonListComponent) },
+      // { path: 'lessons/:id', loadComponent: () => import('./lessons/lesson-detail/lesson-detail.component').then(m => m.LessonDetailComponent) },
       { path: 'community', loadComponent: () => import('./community/feed/feed.component').then(m => m.FeedComponent) },
       { path: 'community/profile/:id', loadComponent: () => import('./community/user-profile/user-profile.component').then(m => m.UserProfileComponent) },
-      { path: 'mentorship', loadComponent: () => import('./mentorship/instructor-list/instructor-list.component').then(m => m.InstructorListComponent) },
-      { path: 'mentorship/book/:id', loadComponent: () => import('./mentorship/booking/booking.component').then(m => m.BookingComponent) },
-      { path: 'mentorship/call/:id', loadComponent: () => import('./mentorship/video-call/video-call.component').then(m => m.VideoCallComponent) },
+      { path: 'challenges', loadComponent: () => import('./challenges/challenge-list/challenge-list.component').then(m => m.ChallengeListComponent) },
+      { path: 'feedback', loadComponent: () => import('./feedback/feedback.component').then(m => m.FeedbackComponent) },
+      // { path: 'mentorship', loadComponent: () => import('./mentorship/instructor-list/instructor-list.component').then(m => m.InstructorListComponent) },
+      // { path: 'mentorship/book/:id', loadComponent: () => import('./mentorship/booking/booking.component').then(m => m.BookingComponent) },
+      // { path: 'mentorship/call/:id', loadComponent: () => import('./mentorship/video-call/video-call.component').then(m => m.VideoCallComponent) },
       { path: 'profile/settings', loadComponent: () => import('./profile/settings/settings.component').then(m => m.SettingsComponent) },
       { path: 'profile/subscription', loadComponent: () => import('./profile/subscription/subscription.component').then(m => m.SubscriptionComponent) }
     ]

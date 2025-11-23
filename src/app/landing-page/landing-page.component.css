@@ -2,6 +2,20 @@
   display: block;
   min-height: 100vh;
   background-color: var(--bg-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background Animation */
+.background-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
 }
 
 /* Navbar */
@@ -11,6 +25,19 @@
   align-items: center;
   padding-top: var(--spacing-lg);
   padding-bottom: var(--spacing-lg);
+  animation: slideDown 0.5s ease forwards;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .logo {
@@ -21,6 +48,11 @@
   font-weight: 700;
   font-size: 1.5rem;
   color: var(--text-main);
+  transition: transform 0.2s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
 }
 
 .logo .material-icons {
@@ -35,10 +67,26 @@
 .nav-links a {
   color: var(--text-muted);
   font-weight: 500;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--primary);
+  transition: width 0.3s ease;
 }
 
 .nav-links a:hover {
   color: var(--text-main);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
 }
 
 .nav-auth {
@@ -63,7 +111,10 @@
   margin-bottom: var(--spacing-md);
   background: linear-gradient(to right, #fff, #94a3b8);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  opacity: 0;
+  animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
 }
 
 .hero-content .subtitle {
@@ -71,6 +122,13 @@
   color: var(--text-muted);
   margin-bottom: var(--spacing-xl);
   max-width: 500px;
+  opacity: 0;
+  animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+}
+
+.hero-content .btn {
+  opacity: 0;
+  animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
 }
 
 .hero-image {
@@ -78,25 +136,29 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0;
+  animation: fadeIn 1s ease 0.5s forwards;
 }
 
 .image-placeholder {
   width: 100%;
-  height: 400px;
-  background: linear-gradient(135deg, #1e293b, #0f172a);
-  border-radius: var(--radius-xl);
+  height: 100%;
   position: relative;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: float 6s ease-in-out infinite;
 }
 
 .image-placeholder img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  opacity: 0.8;
+  object-fit: contain;
+  transition: transform 0.5s ease;
+}
+
+.image-placeholder:hover img {
+  transform: scale(1.05);
 }
 
 .glow-effect {
@@ -109,6 +171,19 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  animation: pulseGlow 4s infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% {
+    opacity: 0.2;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  100% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
 }
 
 /* Sections */
@@ -119,11 +194,21 @@ section {
 
 .section-header {
   margin-bottom: var(--spacing-xl);
+  text-align: center;
+  /* Center headers for better flow */
+  opacity: 0;
+  animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+  /* Simple delay for now */
 }
 
 .section-header h3 {
-  font-size: 1.5rem;
+  font-size: 2rem;
+  /* Slightly larger */
   color: var(--text-main);
+  background: linear-gradient(135deg, #fff 0%, #ccc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Features */
@@ -140,12 +225,32 @@ section {
   padding: var(--spacing-lg);
   display: flex;
   gap: var(--spacing-md);
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Staggered Feature Animations (assuming visible on load for simplicity) */
+.feature-card:nth-child(1) {
+  animation-delay: 0.6s;
+}
+
+.feature-card:nth-child(2) {
+  animation-delay: 0.7s;
+}
+
+.feature-card:nth-child(3) {
+  animation-delay: 0.8s;
+}
+
+.feature-card:nth-child(4) {
+  animation-delay: 0.9s;
 }
 
 .feature-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-8px);
   border-color: var(--primary);
+  box-shadow: 0 10px 30px -10px rgba(17, 153, 142, 0.2);
 }
 
 .icon-box {
@@ -158,6 +263,12 @@ section {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover .icon-box {
+  transform: scale(1.1) rotate(5deg);
+  background: rgba(17, 153, 142, 0.2);
 }
 
 .feature-text h4 {
@@ -183,6 +294,14 @@ section {
   border-radius: var(--radius-xl);
   padding: var(--spacing-xl);
   position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .quote-icon {
@@ -261,6 +380,15 @@ section {
   display: flex;
   flex-direction: column;
   height: 100%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards;
+}
+
+.pricing-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 }
 
 .pricing-card.highlight {
@@ -269,6 +397,11 @@ section {
   box-shadow: 0 0 20px rgba(17, 153, 142, 0.1);
   transform: scale(1.05);
   z-index: 1;
+}
+
+.pricing-card.highlight:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 40px rgba(17, 153, 142, 0.3);
 }
 
 .card-content {
@@ -307,6 +440,16 @@ section {
   color: var(--text-muted);
   margin-bottom: var(--spacing-sm);
   font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.feature-list li::before {
+  content: 'check';
+  font-family: 'Material Icons';
+  color: var(--primary);
+  font-size: 16px;
 }
 
 .spacer {
@@ -323,6 +466,8 @@ section {
   padding-top: var(--spacing-2xl);
   padding-bottom: var(--spacing-2xl);
   margin-bottom: var(--spacing-2xl);
+  opacity: 0;
+  animation: fadeIn 1s ease 1.2s forwards;
 }
 
 .footer-cta h2 {
@@ -359,5 +504,9 @@ section {
 
   .pricing-card.highlight {
     transform: none;
+  }
+
+  .pricing-card.highlight:hover {
+    transform: translateY(-8px);
   }
 }

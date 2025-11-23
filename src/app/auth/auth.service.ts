@@ -74,4 +74,20 @@ export class AuthService {
   get currentUserValue(): User | null {
     return this.userSubject.value;
   }
+
+  upgradeToPremium(): Observable<User> {
+    const currentUser = this.currentUserValue;
+    if (!currentUser) {
+      throw new Error('No user logged in');
+    }
+
+    const updatedUser = { ...currentUser, isPro: true };
+    return of(updatedUser).pipe(
+      delay(1000),
+      tap(user => {
+        this.userSubject.next(user);
+        localStorage.setItem('mock_user', JSON.stringify(user));
+      })
+    );
+  }
 }

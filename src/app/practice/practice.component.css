@@ -13,13 +13,13 @@
   max-width: 1600px;
   margin: 0 auto;
   align-items: start;
-  /* Fix alignment */
 }
 
 .practice-main {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .section-header {
@@ -44,6 +44,11 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.main-card:hover {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 }
 
 /* Feedback Section */
@@ -83,6 +88,7 @@
 
 .btn-listen:hover {
   background: #444;
+  transform: translateY(-2px);
 }
 
 .btn-listen.listening {
@@ -130,6 +136,7 @@
 
 .clear-all-button:hover {
   background: rgba(244, 67, 54, 0.1);
+  transform: translateY(-1px);
 }
 
 .selected-chords {
@@ -141,6 +148,11 @@
   background: #181818;
   border-radius: 12px;
   border: 2px dashed #333;
+  transition: border-color 0.2s;
+}
+
+.selected-chords:hover {
+  border-color: #555;
 }
 
 .chord-chip {
@@ -153,12 +165,19 @@
   font-weight: 600;
   cursor: grab;
   user-select: none;
-  transition: transform 0.1s;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: scaleIn 0.3s ease forwards;
+}
+
+.chord-chip:hover {
+  background: #444;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .chord-chip:active {
   cursor: grabbing;
-  transform: scale(1.05);
+  transform: scale(0.95);
 }
 
 .remove-chord {
@@ -167,11 +186,12 @@
   cursor: pointer;
   filter: invert(1);
   opacity: 0.7;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, transform 0.2s;
 }
 
 .remove-chord:hover {
   opacity: 1;
+  transform: scale(1.2);
 }
 
 /* Sidebar */
@@ -179,6 +199,36 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+/* Staggered animations for sidebar children */
+.practice-sidebar>* {
+  opacity: 0;
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.practice-sidebar>*:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.practice-sidebar>*:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.practice-sidebar>*:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.practice-sidebar>*:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.practice-sidebar>*:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.practice-sidebar>*:nth-child(6) {
+  animation-delay: 0.6s;
 }
 
 /* Animations */

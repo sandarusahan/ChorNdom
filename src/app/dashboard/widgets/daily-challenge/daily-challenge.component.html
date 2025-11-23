@@ -10,17 +10,6 @@
             </ng-container>
         </div>
 
-        <div class="timer-display" *ngIf="isActive">
-            {{ timeLeft }}s
-        </div>
-
-        <div class="completion-message" *ngIf="isCompleted">
-            Challenge Completed! 🎉
-        </div>
-
-        <button class="btn-primary full-width" *ngIf="!isActive && !isCompleted" (click)="startChallenge()">Start
-            Challenge</button>
-        <button class="btn-success full-width" *ngIf="isActive" (click)="completeChallenge()">Complete</button>
-        <button class="btn-secondary full-width" *ngIf="isCompleted" (click)="startChallenge()">Try Again</button>
+        <button class="btn-primary full-width" (click)="viewChallenges()">View All Challenges</button>
     </div>
 </div>

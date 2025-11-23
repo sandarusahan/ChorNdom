@@ -4,11 +4,13 @@ import { RouterModule } from '@angular/router';
 import { AuthService, User } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
 
+import { AdBannerComponent } from '../shared/ad-banner/ad-banner.component';
+
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.css'],
-    imports: [CommonModule, RouterModule],
+    imports: [CommonModule, RouterModule, AdBannerComponent],
     standalone: true
 })
 export class DashboardComponent implements OnInit, OnDestroy {

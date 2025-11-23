@@ -58,10 +58,18 @@ export class ChordDisplayComponent implements OnChanges {
   @Input() countdownValue: number = 3;
 
   dots: number[] = [];
+  isChordChanging = false;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.beat) {
       this.dots = Array(this.beat).fill(0).map((x, i) => i);
+    }
+
+    if (changes.chord && !changes.chord.firstChange) {
+      this.isChordChanging = true;
+      setTimeout(() => {
+        this.isChordChanging = false;
+      }, 300);
     }
   }
 

@@ -13,24 +13,7 @@
         </app-chord-display>
 
 
-        <!-- AI Chord Feedback Section -->
-        <div class="feedback-section">
-          <div class="feedback-header">
-            <h3>AI Assistant</h3>
-            <button class="btn-listen" [class.listening]="isListening" (click)="toggleListening()">
-              <span class="material-icons">{{ isListening ? 'mic_off' : 'mic' }}</span>
-              {{ isListening ? 'Stop Listening' : 'Start Listening' }}
-            </button>
-          </div>
-          <div class="feedback-display" *ngIf="isListening">
-            <div class="feedback-message" [class.success]="feedbackMessage.includes('Correct')">
-              {{ feedbackMessage }}
-            </div>
-            <div class="feedback-chord" *ngIf="feedbackChord">
-              Heard: <strong>{{ feedbackChord }}</strong>
-            </div>
-          </div>
-        </div>
+        <!-- AI Chord Feedback Section Removed -->
 
         <div class="section">
           <div class="section-header selected-chords-header">
@@ -69,12 +52,12 @@
           (timeSignatureChange)="onTimeSignatureChange($event)"></app-time-signature-selector>
       </app-controls>
 
-      <!-- <app-daily-challenge></app-daily-challenge>
+      <app-daily-challenge></app-daily-challenge>
       <app-skills-tracker></app-skills-tracker>
       <app-tuner-widget></app-tuner-widget>
       <app-metronome-widget></app-metronome-widget>
-      <app-teacher-widget></app-teacher-widget>
-      <app-community-widget></app-community-widget> -->
+      <!-- <app-teacher-widget></app-teacher-widget> -->
+      <app-community-widget></app-community-widget>
     </div>
   </div>
 </div>

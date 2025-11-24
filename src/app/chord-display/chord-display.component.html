@@ -6,12 +6,12 @@
       <!-- Content Area (Countdown OR Chord Name) - Fixed height to prevent jumping -->
       <div class="chord-content-area">
         <!-- Countdown Overlay -->
-        <div class="countdown-container" *ngIf="isCountingDown" @fadeInOut>
+        <div class="countdown-container" *ngIf="isCountingDown">
           <div class="countdown-number">{{ countdownValue }}</div>
         </div>
 
         <!-- Chord Name (Hidden during countdown/start) -->
-        <h1 *ngIf="!isCountingDown && chord" @chordReveal [class.chord-change-pulse]="isChordChanging">{{ chord }}</h1>
+        <h1 *ngIf="!isCountingDown && chord" [class.chord-change-pulse]="isChordChanging">{{ chord }}</h1>
 
         <!-- Placeholder when not started and not counting down -->
         <div *ngIf="!isCountingDown && !chord" class="start-placeholder">
@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div class="fretboard-wrapper" @slideDown [class.paused]="isPaused">
+    <div class="fretboard-wrapper" [class.paused]="isPaused">
       <app-fretboard [voicing]="voicing"></app-fretboard>
     </div>
 

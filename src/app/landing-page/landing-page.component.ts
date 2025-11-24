@@ -105,7 +105,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   onPlanSelect(planName: string): void {
     switch (planName) {
       case 'Free':
-        this.router.navigate(['/signup']);
+        this.router.navigate(['/app']);
         break;
       case 'Premium':
         this.router.navigate(['/signup'], { queryParams: { plan: 'premium' } });
